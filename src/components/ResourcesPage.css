@@ -1,0 +1,646 @@
+/* ======================================================
+   RESOURCES PAGE — Research-Paper-Style Document Library
+   ====================================================== */
+
+/* ── Hero ── */
+.resources-hero {
+  padding: 10rem 0 4rem;
+  background: linear-gradient(135deg, var(--bg-section-alt) 0%, var(--color-primary-light) 100%);
+  text-align: center;
+}
+
+.resources-hero h1 {
+  max-width: 700px;
+  margin: 0 auto 1rem;
+}
+
+.resources-hero > .container > p {
+  max-width: 560px;
+  margin: 0 auto 2rem;
+  color: var(--text-secondary);
+}
+
+/* ── Search Bar ── */
+.resources-search-wrap {
+  max-width: 560px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.resources-search-wrap .search-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  pointer-events: none;
+}
+
+.resources-search {
+  width: 100%;
+  padding: 1rem 1.25rem 1rem 3.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-family: var(--font-family);
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+
+.resources-search:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(89, 151, 66, 0.12);
+}
+
+/* ── Grid Section ── */
+.resources-grid-section {
+  padding: 4rem 0 6rem;
+}
+
+.resources-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.resources-count {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* ── Document Card Grid ── */
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+/* ── Individual Card ── */
+.resource-card {
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2rem 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+  position: relative;
+}
+
+.resource-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* File-type badge */
+.resource-card .file-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+.file-badge.pdf  { background: #fde8e8; color: #c0392b; }
+.file-badge.docx { background: #dbeafe; color: #2563eb; }
+.file-badge.doc  { background: #dbeafe; color: #2563eb; }
+.file-badge.pptx { background: #ffedd5; color: #c2410c; }
+.file-badge.ppt  { background: #ffedd5; color: #c2410c; }
+.file-badge.xlsx { background: #d1fae5; color: #047857; }
+.file-badge.xls  { background: #d1fae5; color: #047857; }
+
+.resource-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.resource-card .resource-desc {
+  color: var(--text-light);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.resource-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.resource-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Card actions row */
+.resource-actions {
+  display: flex;
+  gap: 0.75rem;
+  border-top: 1px solid var(--border-light);
+  padding-top: 1rem;
+}
+
+.resource-actions .btn {
+  font-size: 0.82rem;
+  padding: 0.5rem 1rem;
+  flex: 1;
+}
+
+.btn-view {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border: none;
+  border-radius: var(--radius-pill);
+}
+
+.btn-view:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-download {
+  background: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+}
+
+.btn-download:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ── Empty state ── */
+.resources-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.resources-empty .empty-icon {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+  opacity: 0.4;
+}
+
+.resources-empty h3 {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.resources-empty p {
+  color: var(--text-light);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ── Admin Login (subtle) ── */
+.admin-login-trigger {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  transition: color 0.2s;
+}
+
+.admin-login-trigger:hover {
+  color: var(--color-primary);
+}
+
+/* ── Admin Login Modal ── */
+.admin-login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+.admin-login-modal {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+}
+
+.admin-login-modal h3 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.admin-login-modal .form-group {
+  margin-bottom: 1rem;
+}
+
+.admin-login-modal label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--text-secondary);
+}
+
+.admin-login-modal input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: var(--font-family);
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.admin-login-modal input:focus {
+  border-color: var(--color-primary);
+}
+
+.admin-login-modal .login-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.admin-login-modal .login-actions .btn {
+  flex: 1;
+}
+
+.login-error {
+  color: #c0392b;
+  font-size: 0.82rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* ── Admin Upload Panel ── */
+.admin-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(89, 151, 66, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-panel-header h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.75rem;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.upload-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.upload-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-form .form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.upload-form label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+  color: var(--text-secondary);
+}
+
+.upload-form input,
+.upload-form textarea {
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: var(--font-family);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.upload-form input:focus,
+.upload-form textarea:focus {
+  border-color: var(--color-primary);
+}
+
+.upload-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* File dropzone */
+.file-dropzone {
+  grid-column: 1 / -1;
+  border: 2px dashed rgba(89, 151, 66, 0.3);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+  background: rgba(89, 151, 66, 0.02);
+}
+
+.file-dropzone:hover {
+  border-color: var(--color-primary);
+  background: rgba(89, 151, 66, 0.05);
+}
+
+.file-dropzone p {
+  color: var(--text-light);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.file-dropzone .selected-file {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+/* Upload progress */
+.upload-progress-wrap {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+}
+
+.upload-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--color-primary-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.upload-progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.upload-progress-text {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-top: 0.35rem;
+}
+
+.upload-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+/* Admin doc list with delete */
+.admin-doc-list {
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  padding-top: 1.5rem;
+}
+
+.admin-doc-list h4 {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.admin-doc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.admin-doc-row:last-child {
+  border-bottom: none;
+}
+
+.admin-doc-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-doc-info .file-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admin-doc-info span {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.btn-delete {
+  background: none;
+  border: 1px solid #fde8e8;
+  color: #c0392b;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+  color: white;
+  border-color: #c0392b;
+}
+
+/* ── PDF Viewer Modal ── */
+.pdf-viewer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+
+.pdf-viewer-modal {
+  background: white;
+  border-radius: var(--radius-lg);
+  width: 90vw;
+  height: 90vh;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.pdf-viewer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+.pdf-viewer-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+
+.pdf-viewer-header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.pdf-viewer-header-actions .btn {
+  font-size: 0.82rem;
+  padding: 0.45rem 1rem;
+}
+
+.btn-close-viewer {
+  background: none;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  transition: all 0.2s;
+  color: var(--text-secondary);
+}
+
+.btn-close-viewer:hover {
+  background: #fde8e8;
+  border-color: #c0392b;
+  color: #c0392b;
+}
+
+.pdf-viewer-body {
+  flex: 1;
+  overflow: hidden;
+}
+
+.pdf-viewer-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Non-PDF preview fallback */
+.non-pdf-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 3rem;
+}
+
+.non-pdf-preview .file-icon-large {
+  opacity: 0.25;
+}
+
+.non-pdf-preview p {
+  color: var(--text-light);
+  text-align: center;
+  max-width: 360px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .resources-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .upload-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .resources-grid {
+    grid-template-columns: 1fr;
+  }
+  .resources-hero {
+    padding: 8rem 0 3rem;
+  }
+  .resources-grid-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .pdf-viewer-modal {
+    width: 98vw;
+    height: 95vh;
+    border-radius: var(--radius-md);
+  }
+}

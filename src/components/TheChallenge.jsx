@@ -43,7 +43,7 @@ export default function TheChallenge() {
               {/* Subtle watermark stat overlay */}
               <div className="challenge-stat-overlay glass">
                 <span className="overlay-number">70%</span>
-                <span className="overlay-label">of knowledge lost<br />within one month</span>
+                <span className="overlay-label">of traditional training<br />fails in the field</span>
               </div>
             </div>
           </div>

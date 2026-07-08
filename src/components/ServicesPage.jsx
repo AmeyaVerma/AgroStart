@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Users, Zap, CheckCircle2, Leaf, GraduationCap, TrendingUp, BookOpen, ChevronRight, Sprout, Droplet } from 'lucide-react';
+import { ArrowRight, Users, Zap, CheckCircle2, Leaf, GraduationCap, ChevronRight, Sprout, Droplet } from 'lucide-react';
 import './ServicesPage.css';
 import '../App.css';
 import Contact from './Contact';
@@ -200,12 +200,12 @@ export default function ServicesPage() {
             <Link to="/#why">Why AgroStart</Link>
             <Link to="/services" className="highlight-green">Services</Link>
             <Link to="/#impact">Impact</Link>
-            <Link to="/#resources">Resources <ChevronRight size={14} className="nav-icon" /></Link>
+            <Link to="/resources">Resources <ChevronRight size={14} className="nav-icon" /></Link>
           </nav>
 
           <div className="header-actions">
             <Link to="/#contact" className="btn btn-outline">Free Consultation</Link>
-            <Link to="/#services" className="btn btn-primary">Book Demo</Link>
+            <a href="https://calendly.com/skilldeskdemo/skilldesk-demo?month=2026-07" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book Demo</a>
           </div>
         </div>
       </header>

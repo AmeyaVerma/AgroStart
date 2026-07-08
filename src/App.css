@@ -569,10 +569,7 @@
 }
 
 .platform-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  display: block;
 }
 
 .platform-dashboard {
@@ -649,14 +646,29 @@
 }
 
 .platform-features {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
 }
 
 .plat-feat-item {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 1.5rem;
+  background: white;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.plat-feat-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
 }
 
 .plat-icon {
@@ -771,3 +783,242 @@
   font-size: 0.85rem;
   color: var(--text-light);
 }
+
+/* ── Hamburger / Mobile Nav ── */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-main);
+  padding: 0.25rem;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.hamburger-btn:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.mobile-nav-drawer {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  padding: 1rem 1.5rem 1.5rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  z-index: 99;
+}
+
+.mobile-nav-drawer a {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  text-decoration: none;
+  display: block;
+  transition: color 0.2s;
+}
+
+.mobile-nav-drawer a:last-of-type {
+  border-bottom: none;
+}
+
+.mobile-nav-drawer a:hover {
+  color: var(--color-primary);
+}
+
+.mobile-nav-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.mobile-nav-actions .btn {
+  text-align: center;
+  justify-content: center;
+}
+
+/* ── 404 Not Found Page ── */
+.not-found-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-main);
+}
+
+.not-found-inner {
+  text-align: center;
+  padding: 2rem;
+}
+
+.not-found-emoji {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+
+.not-found-inner h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.not-found-inner p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* ── Responsive Breakpoints ── */
+@media (max-width: 1024px) {
+  .hero-inner {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-metrics {
+    justify-content: center;
+  }
+
+  .platform-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .flower-mockup-container {
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hide desktop nav, show hamburger */
+  .nav {
+    display: none;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav-drawer {
+    display: flex;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 8rem 0 4rem;
+    min-height: auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .hero-metrics {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .metric {
+    flex: 1 1 calc(50% - 0.5rem);
+    min-width: 120px;
+  }
+
+  /* Phone mockups — show only center */
+  .side-phone {
+    display: none;
+  }
+
+  .flower-mockup-container {
+    transform: none;
+    justify-content: center;
+  }
+
+  /* Sections */
+  .section-header h2,
+  .solutions-section h2,
+  .impact h2 {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+  }
+
+  .solutions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .impact-stat-box {
+    padding: 2rem 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 2.2rem;
+  }
+
+  .platform-features {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.85rem;
+  }
+
+  .impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-metrics {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .metric {
+    flex: none;
+    width: 100%;
+  }
+}
+

@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Routes, Route, Link } from 'react-router-dom';
-import { Play, ArrowRight, CheckCircle2, ChevronRight, BarChart3, Globe2, Smartphone, Zap, TrendingUp, Users, Target, Search, Clock, GraduationCap, LayoutDashboard, Database, Leaf, Sprout, Droplet, Hand } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ChevronRight, Zap, TrendingUp, Users, Target, GraduationCap, Database, Leaf, Sprout, Droplet, Menu, X } from 'lucide-react';
 import TheChallenge from './components/TheChallenge';
 import OurSolution from './components/OurSolution';
 import Contact from './components/Contact';
 import ServicesPage from './components/ServicesPage';
-import dashboardImg from './assets/agrostart_dashboard.png';
+import ResourcesPage from './components/ResourcesPage';
+
+import performanceImg from './assets/performance_impact_illustration.png';
+import microLearningImg from './assets/micro_learning_illustration.png';
+import learningPathsImg from './assets/master_trainer_illustration.png';
+import fieldForceImg from './assets/service_fieldforce.png';
 
 function HomePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const closeMobile = () => setMobileMenuOpen(false);
   return (
     <div className="app">
       {/* HEADER */}
@@ -35,17 +42,39 @@ function HomePage() {
             </div>
           </Link>
           <nav className="nav">
-            <a href="#platform">Platform</a>
-            <a href="#why">Why AgroStart</a>
-            <Link to="/services">Services</Link>
-            <a href="#impact">Impact</a>
-            <a href="#resources">Resources <ChevronRight size={14} className="nav-icon" /></a>
+            <a href="#platform" onClick={closeMobile}>Platform</a>
+            <a href="#why" onClick={closeMobile}>Why AgroStart</a>
+            <Link to="/services" onClick={closeMobile}>Services</Link>
+            <a href="#impact" onClick={closeMobile}>Impact</a>
+            <Link to="/resources" onClick={closeMobile}>Resources <ChevronRight size={14} className="nav-icon" /></Link>
           </nav>
           <div className="header-actions">
             <a href="#contact" className="btn btn-outline">Free Consultation</a>
-            <a href="#services" className="btn btn-primary">Book Demo</a>
+            <a href="https://calendly.com/skilldeskdemo/skilldesk-demo?month=2026-07" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book Demo</a>
           </div>
+          {/* Mobile hamburger */}
+          <button
+            className="hamburger-btn"
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+        {/* Mobile nav drawer */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-drawer">
+            <a href="#platform" onClick={closeMobile}>Platform</a>
+            <a href="#why" onClick={closeMobile}>Why AgroStart</a>
+            <Link to="/services" onClick={closeMobile}>Services</Link>
+            <a href="#impact" onClick={closeMobile}>Impact</a>
+            <Link to="/resources" onClick={closeMobile}>Resources</Link>
+            <div className="mobile-nav-actions">
+              <a href="#contact" className="btn btn-outline" onClick={closeMobile}>Free Consultation</a>
+              <a href="https://calendly.com/skilldeskdemo/skilldesk-demo?month=2026-07" target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={closeMobile}>Book Demo</a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* HERO SECTION */}
@@ -57,7 +86,7 @@ function HomePage() {
             <h1>Turn agricultural learning into <span className="highlight-green">measurable</span> field performance.</h1>
             <p>AI-powered, mobile-first training and performance enablement platform for agribusinesses, field teams, dealers, and farmers.</p>
             <div className="hero-actions">
-              <a href="#services" className="btn btn-primary">Book Demo <ArrowRight size={16} /></a>
+              <a href="https://calendly.com/skilldeskdemo/skilldesk-demo?month=2026-07" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book Demo <ArrowRight size={16} /></a>
               <a href="#contact" className="btn btn-outline">Request a Diagnostic</a>
             </div>
             
@@ -199,34 +228,30 @@ function HomePage() {
              <h2>Everything you need. All in one place.</h2>
           </div>
           <div className="platform-grid">
-             <div className="platform-dashboard shadow-lg" style={{ padding: 0, overflow: 'hidden', border: '1px solid rgba(0,0,0,0.05)' }}>
-                <img src={dashboardImg} alt="AgroStart Dashboard" style={{ width: '100%', height: 'auto', display: 'block' }} />
-             </div>
-             
              <div className="platform-features">
                <div className="plat-feat-item">
-                 <div className="plat-icon"><LayoutDashboard size={24}/></div>
+                 <img src={performanceImg} alt="Smart Dashboards" className="plat-feat-img" />
                  <div>
                    <h4>Smart Dashboards</h4>
                    <p>Track progress, performance and impact in real-time.</p>
                  </div>
                </div>
                <div className="plat-feat-item">
-                 <div className="plat-icon"><Globe2 size={24}/></div>
+                 <img src={microLearningImg} alt="Localized Content" className="plat-feat-img" />
                  <div>
                    <h4>Localized Content</h4>
                    <p>Deliver training in regional languages.</p>
                  </div>
                </div>
                <div className="plat-feat-item">
-                 <div className="plat-icon"><Smartphone size={24}/></div>
+                 <img src={fieldForceImg} alt="Mobile First" className="plat-feat-img" />
                  <div>
                    <h4>Mobile First</h4>
                    <p>Built for the field. Works offline too.</p>
                  </div>
                </div>
                <div className="plat-feat-item">
-                 <div className="plat-icon"><Zap size={24}/></div>
+                 <img src={learningPathsImg} alt="AI Recommendations" className="plat-feat-img" />
                  <div>
                    <h4>AI Recommendations</h4>
                    <p>Personalized learning paths for every user.</p>
@@ -343,11 +368,28 @@ function HomePage() {
   );
 }
 
+function NotFoundPage() {
+  return (
+    <div className="app">
+      <div className="not-found-page">
+        <div className="not-found-inner">
+          <div className="not-found-emoji">🌾</div>
+          <h1>404 — Page Not Found</h1>
+          <p>Looks like this field hasn't been planted yet.</p>
+          <Link to="/" className="btn btn-primary">Back to Home <ArrowRight size={16} /></Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/services" element={<ServicesPage />} />
+      <Route path="/resources" element={<ResourcesPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
