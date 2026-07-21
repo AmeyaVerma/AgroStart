@@ -8,6 +8,7 @@ import {
 import { supabase } from '../supabase';
 import './ResourcesPage.css';
 import '../App.css';
+import logoImg from '../assets/logo.png';
 
 const MAX_FILE_SIZE_MB = 10;
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
@@ -28,14 +29,14 @@ function getFileType(name) {
 /* ── Helper: icon for file type ── */
 function FileTypeIcon({ type, size = 18 }) {
   switch (type) {
-    case 'pdf':  return <FileText size={size} />;
+    case 'pdf': return <FileText size={size} />;
     case 'doc':
     case 'docx': return <File size={size} />;
     case 'ppt':
     case 'pptx': return <FileImage size={size} />;
     case 'xls':
     case 'xlsx': return <FileSpreadsheet size={size} />;
-    default:     return <FileText size={size} />;
+    default: return <FileText size={size} />;
   }
 }
 
@@ -60,7 +61,7 @@ function DocViewer({ doc: docData, onClose }) {
           <h4>{docData.title}</h4>
           <div className="pdf-viewer-header-actions">
             <a href={docData.file_url} target="_blank" rel="noopener noreferrer"
-               className="btn btn-download" download>
+              className="btn btn-download" download>
               <Download size={14} /> Download
             </a>
             <button className="btn-close-viewer" onClick={onClose}>
@@ -82,7 +83,7 @@ function DocViewer({ doc: docData, onClose }) {
               Please download the file to view it.
             </p>
             <a href={docData.file_url} target="_blank" rel="noopener noreferrer"
-               className="btn btn-primary" download>
+              className="btn btn-primary" download>
               <Download size={16} /> Download File
             </a>
           </div>
@@ -303,7 +304,7 @@ export default function ResourcesPage() {
           </p>
 
           <div className="resources-search-wrap">
-            <Search size={18} className="search-icon" />
+            <img src={logoImg} alt="AgroStart" className="search-logo-icon" />
             <input
               type="text"
               className="resources-search"
@@ -441,7 +442,7 @@ export default function ResourcesPage() {
                       <Eye size={14} /> View
                     </button>
                     <a href={r.file_url} target="_blank" rel="noopener noreferrer"
-                       className="btn btn-download" download>
+                      className="btn btn-download" download>
                       <Download size={14} /> Download
                     </a>
                   </div>

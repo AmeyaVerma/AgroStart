@@ -165,3 +165,33 @@
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
+
+/* ── Form Success State ── */
+.form-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  gap: 1rem;
+}
+
+.form-success-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.form-success h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.form-success p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 320px;
+  margin: 0;
+}

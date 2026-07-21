@@ -14,7 +14,7 @@
   margin: 0 auto 1rem;
 }
 
-.resources-hero > .container > p {
+.resources-hero>.container>p {
   max-width: 560px;
   margin: 0 auto 2rem;
   color: var(--text-secondary);
@@ -27,18 +27,21 @@
   position: relative;
 }
 
-.resources-search-wrap .search-icon {
+.resources-search-wrap .search-logo-icon {
   position: absolute;
-  left: 1.25rem;
+  left: 0.9rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-light);
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
   pointer-events: none;
+  border-radius: 4px;
 }
 
 .resources-search {
   width: 100%;
-  padding: 1rem 1.25rem 1rem 3.25rem;
+  padding: 1rem 1.25rem 1rem 3.5rem;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-pill);
   font-size: 1rem;
@@ -111,13 +114,40 @@
   margin-bottom: 1rem;
 }
 
-.file-badge.pdf  { background: #fde8e8; color: #c0392b; }
-.file-badge.docx { background: #dbeafe; color: #2563eb; }
-.file-badge.doc  { background: #dbeafe; color: #2563eb; }
-.file-badge.pptx { background: #ffedd5; color: #c2410c; }
-.file-badge.ppt  { background: #ffedd5; color: #c2410c; }
-.file-badge.xlsx { background: #d1fae5; color: #047857; }
-.file-badge.xls  { background: #d1fae5; color: #047857; }
+.file-badge.pdf {
+  background: #fde8e8;
+  color: #c0392b;
+}
+
+.file-badge.docx {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.file-badge.doc {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.file-badge.pptx {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.file-badge.ppt {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.file-badge.xlsx {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.file-badge.xls {
+  background: #d1fae5;
+  color: #047857;
+}
 
 .resource-card h4 {
   font-size: 1.1rem;
@@ -621,6 +651,7 @@
   .resources-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .upload-form {
     grid-template-columns: 1fr;
   }
@@ -630,14 +661,17 @@
   .resources-grid {
     grid-template-columns: 1fr;
   }
+
   .resources-hero {
     padding: 8rem 0 3rem;
   }
+
   .resources-grid-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
   }
+
   .pdf-viewer-modal {
     width: 98vw;
     height: 95vh;
