@@ -5,7 +5,7 @@
 /* Page Hero */
 .services-hero {
   padding: 10rem 0 5rem;
-  background: radial-gradient(circle at 80% 0%, #f4fbf0 0%, #ffffff 60%);
+  background: radial-gradient(circle at 80% 0%, var(--palette-off-white) 0%, #ffffff 60%);
   position: relative;
   overflow: hidden;
   text-align: center;
@@ -15,7 +15,7 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(circle at 20% 50%, rgba(140, 201, 120, 0.08) 0%, transparent 60%);
+  background-image: radial-gradient(circle at 20% 50%, rgba(141, 198, 63, 0.08) 0%, transparent 60%);
   pointer-events: none;
 }
 
@@ -218,7 +218,7 @@
 
 /* Bottom CTA band */
 .services-cta-band {
-  background: var(--color-primary);
+  background: var(--palette-deep-green);
   padding: 6rem 0;
   text-align: center;
 }
@@ -238,8 +238,8 @@
 }
 
 .services-cta-band .btn-white {
-  background: white;
-  color: var(--color-primary);
+  background: var(--palette-gold);
+  color: var(--palette-deep-green);
   padding: 0.875rem 2rem;
   border-radius: var(--radius-pill);
   font-weight: 700;

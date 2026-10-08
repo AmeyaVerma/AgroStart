@@ -53,9 +53,9 @@
   margin-top: 5px;
 }
 
-.pillar-dot.digital { background: #599742; box-shadow: 0 0 0 4px rgba(89,151,66,0.15); }
-.pillar-dot.field   { background: #3a6829; box-shadow: 0 0 0 4px rgba(58,104,41,0.15); }
-.pillar-dot.dot-impact  { background: #1e4d16; box-shadow: 0 0 0 4px rgba(30,77,22,0.15); }
+.pillar-dot.digital { background: var(--palette-leaf-green); box-shadow: 0 0 0 4px rgba(141,198,63,0.2); }
+.pillar-dot.field   { background: var(--palette-forest-green); box-shadow: 0 0 0 4px rgba(44,95,45,0.15); }
+.pillar-dot.dot-impact  { background: var(--palette-deep-green); box-shadow: 0 0 0 4px rgba(11,42,23,0.15); }
 
 .solution-pillar h4 {
   font-size: 0.975rem;
@@ -207,7 +207,7 @@
 .connector-line {
   width: 2px;
   height: 28px;
-  background: linear-gradient(to bottom, var(--color-primary), rgba(89,151,66,0.2));
+  background: linear-gradient(to bottom, var(--color-primary), rgba(44, 95, 45,0.2));
   border-radius: 2px;
   animation: pulse-line 2s ease-in-out infinite;
 }

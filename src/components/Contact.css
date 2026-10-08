@@ -1,6 +1,6 @@
 .contact-section {
   padding: 8rem 0;
-  background: radial-gradient(circle at top right, rgba(140, 201, 120, 0.1) 0%, #ffffff 60%);
+  background: radial-gradient(circle at top right, rgba(141, 198, 63, 0.10) 0%, #ffffff 60%);
   position: relative;
   overflow: hidden;
 }
@@ -107,7 +107,7 @@
   padding: 0.875rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-light);
-  background: #fcfcfc;
+  background: var(--palette-off-white);
   font-family: inherit;
   font-size: 0.9rem;
   color: var(--text-main);

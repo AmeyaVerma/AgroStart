@@ -70,7 +70,7 @@
 .overlay-number {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #c0392b;
+  color: var(--color-error);
   line-height: 1;
   letter-spacing: -0.03em;
 }
@@ -130,7 +130,7 @@
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: rgba(89, 151, 66, 0.1);
+  background: rgba(44, 95, 45, 0.1);
   color: var(--color-primary);
   margin-bottom: 1rem;
 }

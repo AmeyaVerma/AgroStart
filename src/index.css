@@ -1,42 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 html {
   scroll-behavior: smooth;
 }
 
 :root {
-  /* Brand Colors */
-  --color-primary: #599742; /* A vibrant natural green */
-  --color-primary-dark: #3a6829;
-  --color-primary-light: #e8f5e9;
-  --color-accent: #f2f8eb; /* Very light green for backgrounds */
-  
+  /* AgroStart palette (60 / 30 / 10) */
+  --palette-off-white: #F6F8F2;
+  --palette-white: #FFFFFF;
+  --palette-deep-green: #0B2A17;
+  --palette-forest-green: #2C5F2D;
+  --palette-card-green: #123D22;
+  --palette-gold: #F2B01E;
+  --palette-leaf-green: #8DC63F;
+  --palette-body-text: #1B2A1F;
+  --palette-soft-green-grey: #C9DCC9;
+  --palette-border: #CFDCCF;
+  --palette-error: #C0392B;
+  --palette-success: #2E8B57;
+  --palette-sky: #E8F1F8;
+  --palette-warm-tint: #FFF6DD;
+
+  /* Semantic tokens used across the site */
+  --color-primary: var(--palette-forest-green);   /* headings, links, icons, light-bg fills */
+  --color-primary-dark: var(--palette-card-green); /* hover states */
+  --color-primary-light: #E6EFE0;                  /* light green tint (tags, icon chips) */
+  --color-accent: var(--palette-off-white);
+  --color-gold: var(--palette-gold);
+  --color-leaf: var(--palette-leaf-green);
+  --color-deep: var(--palette-deep-green);
+  --color-error: var(--palette-error);
+  --color-success: var(--palette-success);
+
   /* Text Colors */
-  --text-main: #1a1a1a;
-  --text-secondary: #4a5568;
-  --text-light: #718096;
+  --text-main: var(--palette-body-text);
+  --text-secondary: #3F5144;
+  --text-light: #5A6B5E;
   --text-white: #ffffff;
-  
+  --text-on-dark: var(--palette-soft-green-grey);
+
   /* Backgrounds */
-  --bg-main: #fcfcfc;
-  --bg-card: #ffffff;
-  --bg-section-alt: #f6f8f5;
-  
+  --bg-main: var(--palette-off-white);
+  --bg-card: var(--palette-white);
+  --bg-section-alt: var(--palette-off-white);
+
   /* Borders & Shadows */
-  --border-light: rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 10px 25px rgba(89, 151, 66, 0.2);
-  
+  --border-light: var(--palette-border);
+  --shadow-sm: 0 4px 15px rgba(11, 42, 23, 0.05);
+  --shadow-md: 0 10px 30px rgba(11, 42, 23, 0.08);
+  --shadow-lg: 0 20px 40px rgba(11, 42, 23, 0.10);
+  --shadow-glow: 0 10px 25px rgba(242, 176, 30, 0.25);
+
   /* Radii */
+  --radius: 8px;
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-pill: 9999px;
-  
-  /* Typography */
-  --font-family: 'Inter', sans-serif;
+
+  /* Typography: self-hosted Noto Sans with Odia and Devanagari (Hindi) fallbacks */
+  --font-family: 'Noto Sans', 'Noto Sans Oriya', 'Noto Sans Devanagari', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 
 * {
@@ -49,7 +70,7 @@ body {
   font-family: var(--font-family);
   color: var(--text-main);
   background-color: var(--bg-main);
-  line-height: 1.6;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -106,27 +127,32 @@ ul {
   gap: 0.5rem;
 }
 
+/* Gold is for action only: deep green text on gold */
 .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--text-white);
+  background-color: var(--palette-gold);
+  color: var(--palette-deep-green);
   box-shadow: var(--shadow-glow);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-dark);
+  background-color: #FFC233;
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(89, 151, 66, 0.3);
+  box-shadow: 0 12px 30px rgba(242, 176, 30, 0.35);
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--palette-leaf-green);
+  outline-offset: 2px;
 }
 
 .btn-outline {
   background-color: transparent;
-  color: var(--text-main);
-  border: 1px solid rgba(0,0,0,0.1);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-primary);
 }
 
 .btn-outline:hover {
-  border-color: rgba(0,0,0,0.2);
-  background-color: rgba(0,0,0,0.02);
+  background-color: var(--color-primary-light);
 }
 
 /* Tag Component */
@@ -140,16 +166,16 @@ ul {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   background-color: var(--color-primary-light);
-  color: var(--color-primary-dark);
+  color: var(--color-primary);
   margin-bottom: 1rem;
 }
 
 /* Glass Effect */
 .glass {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--palette-border);
 }
 
 /* Animations */

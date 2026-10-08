@@ -54,7 +54,7 @@
 
 .resources-search:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(89, 151, 66, 0.12);
+  box-shadow: 0 0 0 4px rgba(44, 95, 45, 0.12);
 }
 
 /* ── Grid Section ── */
@@ -115,38 +115,38 @@
 }
 
 .file-badge.pdf {
-  background: #fde8e8;
-  color: #c0392b;
+  background: #FBE9E7;
+  color: var(--color-error);
 }
 
 .file-badge.docx {
-  background: #dbeafe;
-  color: #2563eb;
+  background: var(--palette-sky);
+  color: var(--text-main);
 }
 
 .file-badge.doc {
-  background: #dbeafe;
-  color: #2563eb;
+  background: var(--palette-sky);
+  color: var(--text-main);
 }
 
 .file-badge.pptx {
-  background: #ffedd5;
-  color: #c2410c;
+  background: var(--palette-warm-tint);
+  color: var(--text-main);
 }
 
 .file-badge.ppt {
-  background: #ffedd5;
-  color: #c2410c;
+  background: var(--palette-warm-tint);
+  color: var(--text-main);
 }
 
 .file-badge.xlsx {
-  background: #d1fae5;
-  color: #047857;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .file-badge.xls {
-  background: #d1fae5;
-  color: #047857;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .resource-card h4 {
@@ -328,7 +328,7 @@
 }
 
 .login-error {
-  color: #c0392b;
+  color: var(--color-error);
   font-size: 0.82rem;
   margin-top: 0.5rem;
   text-align: center;
@@ -338,7 +338,7 @@
 .admin-panel {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(89, 151, 66, 0.2);
+  border: 1px solid rgba(44, 95, 45, 0.2);
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   margin-bottom: 3rem;
@@ -416,18 +416,18 @@
 /* File dropzone */
 .file-dropzone {
   grid-column: 1 / -1;
-  border: 2px dashed rgba(89, 151, 66, 0.3);
+  border: 2px dashed rgba(44, 95, 45, 0.3);
   border-radius: var(--radius-md);
   padding: 2rem;
   text-align: center;
   cursor: pointer;
   transition: border-color 0.3s, background 0.3s;
-  background: rgba(89, 151, 66, 0.02);
+  background: rgba(44, 95, 45, 0.03);
 }
 
 .file-dropzone:hover {
   border-color: var(--color-primary);
-  background: rgba(89, 151, 66, 0.05);
+  background: rgba(44, 95, 45, 0.06);
 }
 
 .file-dropzone p {
@@ -524,8 +524,8 @@
 
 .btn-delete {
   background: none;
-  border: 1px solid #fde8e8;
-  color: #c0392b;
+  border: 1px solid #FBE9E7;
+  color: var(--color-error);
   font-size: 0.78rem;
   padding: 0.35rem 0.75rem;
   border-radius: var(--radius-pill);
@@ -536,9 +536,9 @@
 }
 
 .btn-delete:hover {
-  background: #c0392b;
+  background: var(--color-error);
   color: white;
-  border-color: #c0392b;
+  border-color: var(--color-error);
 }
 
 /* ── PDF Viewer Modal ── */
@@ -609,9 +609,9 @@
 }
 
 .btn-close-viewer:hover {
-  background: #fde8e8;
-  border-color: #c0392b;
-  color: #c0392b;
+  background: #FBE9E7;
+  border-color: var(--color-error);
+  color: var(--color-error);
 }
 
 .pdf-viewer-body {
