@@ -1,0 +1,232 @@
+/* Shared site chrome: header tweaks, footer, WhatsApp button */
+
+/* ── Header: five main links plus a "More" menu keep the bar uncluttered ── */
+.header .nav a,
+.header .header-actions .btn { white-space: nowrap; }
+.header .header-actions { gap: 0.75rem; }
+.header .header-actions .btn { padding: 0.6rem 1.25rem; }
+
+/* Keep the primary action; the secondary one stays in the menu and hero until there is room */
+@media (max-width: 1699px) {
+  .header .header-actions .btn-outline { display: none; }
+}
+
+.header .nav { gap: 1.25rem; }
+.header .header-inner { gap: 1.5rem; }
+.header .nav { flex: 1; justify-content: center; }
+.header .logo { flex-shrink: 0; }
+.header .nav a, .header .nav-more-btn { font-size: 0.95rem; padding: 0.5rem 0; border-bottom: 2px solid transparent; }
+.header .nav a.active { color: var(--forest-green); border-bottom-color: var(--fresh-green); }
+.mobile-nav-drawer a.active { color: var(--forest-green); font-weight: 700; }
+
+/* "More" dropdown */
+.nav-more { position: relative; }
+
+.header .nav-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0;
+  min-height: 44px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.header .nav-more-btn:hover,
+.header .nav-more-btn[aria-expanded='true'] { color: var(--forest-green); }
+.header .nav-more-btn.active { color: var(--forest-green); border-bottom-color: var(--fresh-green); }
+
+.nav-more-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  min-width: 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  background: #ffffff;
+  border: 1px solid var(--sage-line);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  z-index: 110;
+}
+
+.header .nav-more-menu a {
+  padding: 0.7rem 0.9rem;
+  border-bottom: none;
+  border-radius: var(--radius-sm);
+}
+
+.header .nav-more-menu a:hover { background: var(--pale-sage); }
+.header .nav-more-menu a.active { background: var(--pale-sage); }
+
+@media (max-width: 1360px) {
+  .header .nav,
+  .header .header-actions { display: none; }
+  .hamburger-btn { display: flex; }
+  .mobile-nav-drawer { display: flex; }
+}
+
+/* ── Footer (deep green: the one dark element the palette allows) ── */
+.site-footer {
+  background: var(--deep-green);
+  color: var(--text-on-dark);
+  padding: 4.5rem 0 2rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.footer-brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.footer-brand p { color: var(--text-on-dark); max-width: 380px; }
+
+.footer-contact { display: grid; gap: 0.6rem; margin-top: 1.25rem; }
+.footer-contact li { display: flex; align-items: center; gap: 0.6rem; }
+.footer-contact svg { color: var(--leaf-green); flex-shrink: 0; }
+
+.site-footer a { color: var(--text-on-dark); }
+.site-footer a:hover { color: #ffffff; text-decoration: underline; }
+
+.footer-col { display: flex; flex-direction: column; gap: 0.35rem; }
+.footer-col .footer-heading { color: #ffffff; font-size: 1rem; line-height: 1.4; letter-spacing: 0; margin-bottom: 0.75rem; }
+.footer-col a { padding: 0.35rem 0; min-height: 36px; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(230, 240, 225, 0.25);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* ── WhatsApp click-to-chat (an action, so it uses the button green) ── */
+.whatsapp-fab {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 56px;
+  padding: 0 1.25rem 0 1rem;
+  border-radius: var(--radius-pill);
+  background: var(--fresh-green);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(31, 77, 43, 0.3);
+  transition: transform 0.2s;
+}
+
+.whatsapp-fab:hover { transform: translateY(-2px); background: var(--color-action-hover); }
+
+@media (max-width: 600px) {
+  .whatsapp-fab { padding: 0; width: 56px; justify-content: center; }
+  /* Hidden visually but still read out, so the button keeps its name on small screens */
+  .whatsapp-fab-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+}
+
+/* ── Language switcher (visible on every page) ── */
+.lang-switcher {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--sage-line);
+  border-radius: var(--radius-pill);
+  background: var(--mint-mist);
+  flex-shrink: 0;
+}
+
+.lang-btn {
+  min-width: 44px;
+  min-height: 40px;
+  padding: 0 0.6rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.lang-btn:hover { background: var(--pale-sage); }
+.lang-btn.active { background: var(--fresh-green); color: #ffffff; }
+
+@media (max-width: 1360px) {
+  .header-inner { gap: 0.75rem; }
+  .logo { margin-right: auto; }
+}
+
+@media (max-width: 420px) {
+  .logo-subtitle { display: none; }
+  .lang-btn { min-width: 40px; padding: 0 0.4rem; }
+}
+
+/* Navigation icons */
+.header .nav a { gap: 0.4rem; }
+.header .nav a svg,
+.header .nav-more-btn > svg:first-child { flex-shrink: 0; }
+.mobile-nav-drawer a { display: flex; align-items: center; gap: 0.75rem; }
+.mobile-nav-drawer a svg { color: var(--forest-green); flex-shrink: 0; }
+.header .nav-more-menu a { display: flex; align-items: center; gap: 0.6rem; }
+.header .nav-more-menu a svg { color: var(--forest-green); }
+
+/* Big tap targets (brief, section 4): at least 44px tall */
+.header .logo { min-height: 44px; }
+.lang-btn { min-height: 44px; }
+.mobile-nav-drawer a { min-height: 48px; }
+.footer-bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+.footer-contact a { display: inline-flex; align-items: center; min-height: 36px; }
+
+.footer-col a { display: flex; align-items: center; min-height: 44px; padding: 0; }
+
+/* Bar icons need room: below 1700px the bar shows text only (icons stay in the menus) */
+@media (max-width: 1699px) {
+  .header .nav > a > svg { display: none; }
+}
+
+/* On very wide screens the header may grow so the icons and the extra button fit */
+.header .header-inner { max-width: 1640px; }
+
+/* Focus ring needs to be visible on the deep-green footer */
+.site-footer a:focus-visible { outline-color: #ffffff; }
+
+/* Logo mark sits on a white tile so it reads on the deep-green footer */
+.footer-brand-name { display: flex; align-items: center; gap: 0.75rem; }
+.footer-logo { width: 44px; height: 44px; padding: 3px; background: #ffffff; border-radius: 10px; object-fit: contain; }
+
+/* Bigger logo on desktop; less header padding keeps the bar the same height */
+@media (min-width: 1361px) {
+  .header { padding: 0.5rem 0; }
+  .header .logo-mark { width: 72px; height: 72px; }
+  .header .logo-title { font-size: 1.25rem; }
+  .header .logo-subtitle { font-size: 0.75rem; }
+}

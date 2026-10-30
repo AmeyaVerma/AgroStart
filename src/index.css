@@ -1,42 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 html {
   scroll-behavior: smooth;
 }
 
 :root {
-  /* Brand Colors */
-  --color-primary: #599742; /* A vibrant natural green */
-  --color-primary-dark: #3a6829;
-  --color-primary-light: #e8f5e9;
-  --color-accent: #f2f8eb; /* Very light green for backgrounds */
-  
+  /* Brand palette (AgroStart Website Colour Palette, white-led version)
+     Mostly white and mint with green writing. No gold and no dark bands:
+     deep green is for button hover and the footer only. Leaf green and the pale
+     tints are fills or accents, never text on white. */
+  --white: #FFFFFF;          /* page background and cards (~60%) */
+  --mint-mist: #F3F8F1;      /* alternate sections, form backgrounds (~20%) */
+  --pale-sage: #E6F0E1;      /* cards, icon circles, highlight boxes (~10%) */
+  --forest-green: #2C5F2D;   /* headings, links, icons: 7.5:1 on white */
+  --fresh-green: #35703A;    /* buttons with white text, active tabs: 5.9:1 */
+  --deep-green: #1F4D2B;     /* button hover, footer: 9.7:1 with white text */
+  --leaf-green: #8DC63F;     /* small accents, tags, progress bars: fill only */
+  --body-text: #1F2D23;      /* body text: 14.4:1 on white */
+  --soft-text: #5B6B5F;      /* secondary text, captions: 5.7:1 on white */
+  --sage-line: #D3E2CD;      /* borders and dividers: hairlines only */
+  --error-red: #C0392B;      /* errors, always with an icon or words */
+  --success-green: #2B7A4B;  /* success, always with an icon or words */
+  --soft-sky-blue: #E8F1F8;  /* information boxes (background only) */
+  --light-warm-tint: #FFF6DD;/* highlighted notices (background only) */
+
+  /* Older names, kept so existing component CSS keeps working */
+  --off-white: var(--mint-mist);
+  --border-grey-green: var(--sage-line);
+  --card-green: var(--deep-green);
+  --soft-green-grey: var(--pale-sage);
+
+  /* Semantic tokens */
+  --color-primary: var(--forest-green);
+  --color-primary-dark: var(--deep-green);
+  --color-primary-light: var(--pale-sage);
+  --color-accent: var(--mint-mist);
+  --color-action: var(--fresh-green);
+  --color-action-hover: var(--deep-green);
+
   /* Text Colors */
-  --text-main: #1a1a1a;
-  --text-secondary: #4a5568;
-  --text-light: #718096;
+  --text-main: var(--body-text);
+  --text-secondary: var(--body-text);
+  --text-light: var(--soft-text);
   --text-white: #ffffff;
-  
+  --text-on-dark: var(--pale-sage); /* footer only */
+
   /* Backgrounds */
-  --bg-main: #fcfcfc;
+  --bg-main: #ffffff;
   --bg-card: #ffffff;
-  --bg-section-alt: #f6f8f5;
-  
+  --bg-section-alt: var(--mint-mist);
+
   /* Borders & Shadows */
-  --border-light: rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
-  --shadow-glow: 0 10px 25px rgba(89, 151, 66, 0.2);
-  
+  --border-light: var(--sage-line);
+  --shadow-sm: 0 4px 15px rgba(31, 77, 43, 0.06);
+  --shadow-md: 0 10px 30px rgba(31, 77, 43, 0.08);
+  --shadow-lg: 0 20px 40px rgba(31, 77, 43, 0.10);
+  --shadow-glow: 0 8px 20px rgba(53, 112, 58, 0.22);
+
   /* Radii */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
   --radius-pill: 9999px;
-  
-  /* Typography */
-  --font-family: 'Inter', sans-serif;
+
+  /* Typography: Noto Sans with Indic script fallbacks (self-hosted via @fontsource) */
+  --font-family: 'Noto Sans', 'Noto Sans Oriya', 'Noto Sans Devanagari', 'Noto Sans Bengali', system-ui, sans-serif;
 }
 
 * {
@@ -49,13 +75,14 @@ body {
   font-family: var(--font-family);
   color: var(--text-main);
   background-color: var(--bg-main);
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  line-height: 1.2;
+  line-height: 1.3;
   font-weight: 700;
   color: var(--text-main);
   margin-bottom: 1rem;
@@ -96,10 +123,11 @@ ul {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 48px;
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-pill);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: all 0.3s ease;
   cursor: pointer;
   border: none;
@@ -107,26 +135,25 @@ ul {
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: var(--text-white);
+  background-color: var(--color-action);
+  color: #ffffff;
   box-shadow: var(--shadow-glow);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-action-hover);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(89, 151, 66, 0.3);
+  box-shadow: 0 10px 24px rgba(31, 77, 43, 0.3);
 }
 
 .btn-outline {
   background-color: transparent;
-  color: var(--text-main);
-  border: 1px solid rgba(0,0,0,0.1);
+  color: var(--forest-green);
+  border: 1.5px solid var(--forest-green);
 }
 
 .btn-outline:hover {
-  border-color: rgba(0,0,0,0.2);
-  background-color: rgba(0,0,0,0.02);
+  background-color: var(--color-primary-light);
 }
 
 /* Tag Component */
@@ -135,18 +162,18 @@ ul {
   align-items: center;
   padding: 0.25rem 0.75rem;
   border-radius: var(--radius-pill);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  background-color: var(--color-primary-light);
-  color: var(--color-primary-dark);
+  background-color: var(--pale-sage);
+  color: var(--forest-green);
   margin-bottom: 1rem;
 }
 
 /* Glass Effect */
 .glass {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.4);
@@ -171,3 +198,10 @@ ul {
 .delay-100 { animation-delay: 100ms; opacity: 0; }
 .delay-200 { animation-delay: 200ms; opacity: 0; }
 .delay-300 { animation-delay: 300ms; opacity: 0; }
+
+/* Indic scripts need more line height than Latin text */
+:lang(hi) h1, :lang(hi) h2, :lang(hi) h3,
+:lang(or) h1, :lang(or) h2, :lang(or) h3 { line-height: 1.5; }
+:lang(hi) body, :lang(or) body { line-height: 1.8; }
+:lang(hi) h1, :lang(or) h1 { font-size: clamp(2.1rem, 4vw, 3.3rem); letter-spacing: 0; }
+:lang(hi) .hero h1, :lang(or) .hero h1 { font-size: clamp(2rem, 3.3vw, 3rem); }

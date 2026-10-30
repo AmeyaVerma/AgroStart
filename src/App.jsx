@@ -1,132 +1,79 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useEffect, useRef } from 'react';
 import './App.css';
-import { Routes, Route, Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, ChevronRight, Zap, TrendingUp, Users, Target, GraduationCap, Database, Leaf, Sprout, Droplet, Menu, X } from 'lucide-react';
-import TheChallenge from './components/TheChallenge';
-import OurSolution from './components/OurSolution';
+import './components/Pages.css';
+import { Routes, Route, Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
+import { ArrowRight, Clock, Smartphone, Users, Languages, Home, Timer, ShieldCheck, Sprout, Store } from 'lucide-react';
+import { Link } from './i18n/LocalizedLink';
+import { useLanguage } from './i18n/LanguageContext';
+import { LANG_CODES, splitLang } from './i18n/routing';
+import { applyPageMeta } from './i18n/pageMeta';
+import { COURSES, FEATURED_COURSE_IDS, getCourse } from './data/courses';
+import { LEARNING_STAGES, LIVELIHOOD_STAGES } from './data/journey';
 import Contact from './components/Contact';
-import ServicesPage from './components/ServicesPage';
-import ResourcesPage from './components/ResourcesPage';
+import CourseCard from './components/CourseCard';
+import SiteHeader from './components/SiteHeader';
+import SiteFooter from './components/SiteFooter';
+import WhatsAppButton from './components/WhatsAppButton';
+import PageBoundary from './components/PageBoundary';
 
-import performanceImg from './assets/performance_impact_illustration.png';
-import microLearningImg from './assets/micro_learning_illustration.png';
-import learningPathsImg from './assets/master_trainer_illustration.png';
-import fieldForceImg from './assets/service_fieldforce.png';
+// Every page except Home loads on demand, so the first visit downloads less (slow networks).
+const CoursesPage = lazy(() => import('./components/CoursesPage'));
+const CourseDetailPage = lazy(() => import('./components/CourseDetailPage'));
+const HowItWorksPage = lazy(() => import('./components/HowItWorksPage'));
+const ServicesPage = lazy(() => import('./components/ServicesPage'));
+const PartnersPage = lazy(() => import('./components/PartnersPage'));
+const AboutPage = lazy(() => import('./components/AboutPage'));
+const ImpactPage = lazy(() => import('./components/ImpactPage'));
+const PathwaysPage = lazy(() => import('./components/PathwaysPage'));
+const LegalPage = lazy(() => import('./components/LegalPage'));
+
+// "Why AgroStart": the core problems (problem statement document) and our response.
+const WHY = [
+  { id: 'w1', icon: Languages },
+  { id: 'w2', icon: Home },
+  { id: 'w3', icon: Timer },
+  { id: 'w4', icon: ShieldCheck },
+];
+
+// "Who it is for": the pilot focus groups (target group document).
+const WHO = [
+  { id: 'g1', icon: Sprout },
+  { id: 'g2', icon: Store },
+  { id: 'g3', icon: Users },
+];
+
+const featured = FEATURED_COURSE_IDS.map((id) => COURSES.find((c) => c.id === id)).filter(Boolean);
 
 function HomePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const closeMobile = () => setMobileMenuOpen(false);
+  const { t } = useLanguage();
   return (
     <div className="app">
-      {/* HEADER */}
-      <header className="header glass">
-        <div className="container header-inner">
-          <Link to="/" className="logo">
-            <div className="animated-logo-wrap">
-              <div className="anim-hand-seed">
-                <span style={{ fontSize: '18px', lineHeight: 1 }}>🤏🏽</span>
-              </div>
-              <div className="anim-seed"></div>
-
-              <div className="anim-hand-water">
-                <span style={{ fontSize: '18px', lineHeight: 1 }}>🖐🏽</span>
-              </div>
-              <div className="anim-water"><Droplet size={18} fill="currentColor" strokeWidth={0} /></div>
-
-              <div className="anim-sprout"><Sprout size={32} /></div>
-              <div className="anim-leaf"><Leaf size={32} /></div>
-            </div>
-            <div className="logo-text">
-              <span className="logo-title">AgroStart</span>
-              <span className="logo-subtitle">Digital Agriculture Academy</span>
-            </div>
-          </Link>
-          <nav className="nav">
-            <a href="#platform" onClick={closeMobile}>Platform</a>
-            <a href="#why" onClick={closeMobile}>Why AgroStart</a>
-            <Link to="/services" onClick={closeMobile}>Services</Link>
-            <a href="#impact" onClick={closeMobile}>Impact</a>
-            <Link to="/resources" onClick={closeMobile}>Resources <ChevronRight size={14} className="nav-icon" /></Link>
-          </nav>
-          <div className="header-actions">
-            <a href="#contact" className="btn btn-outline">Free Consultation</a>
-            <a href="https://calendly.com/skilldeskdemo/skilldesk-demo?month=2026-07" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book Demo</a>
-          </div>
-          {/* Mobile hamburger */}
-          <button
-            className="hamburger-btn"
-            onClick={() => setMobileMenuOpen((o) => !o)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-        {/* Mobile nav drawer */}
-        {mobileMenuOpen && (
-          <div className="mobile-nav-drawer">
-            <a href="#platform" onClick={closeMobile}>Platform</a>
-            <a href="#why" onClick={closeMobile}>Why AgroStart</a>
-            <Link to="/services" onClick={closeMobile}>Services</Link>
-            <a href="#impact" onClick={closeMobile}>Impact</a>
-            <Link to="/resources" onClick={closeMobile}>Resources</Link>
-            <div className="mobile-nav-actions">
-              <a href="#contact" className="btn btn-outline" onClick={closeMobile}>Free Consultation</a>
-              <a href="https://calendly.com/skilldeskdemo/skilldesk-demo?month=2026-07" target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={closeMobile}>Book Demo</a>
-            </div>
-          </div>
-        )}
-      </header>
-
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="hero" id="hero">
         <div className="hero-background"></div>
         <div className="container hero-inner">
           <div className="hero-content animate-fade-in-up">
-            <div className="tag">AI-ENABLED AGRICULTURE LEARNING PLATFORM</div>
-            <h1>Turn agricultural learning into <span className="highlight-green">measurable</span> field performance.</h1>
-            <p>AI-powered, mobile-first training and performance enablement platform for agribusinesses, field teams, dealers, and farmers.</p>
+            <div className="tag">{t('home.hero.tag')}</div>
+            <h1>{t('home.hero.h1.pre')} <span className="highlight-green">{t('home.hero.h1.highlight')}</span></h1>
+            <p>{t('home.hero.p')}</p>
             <div className="hero-actions">
-              <a href="https://calendly.com/skilldeskdemo/skilldesk-demo?month=2026-07" target="_blank" rel="noopener noreferrer" className="btn btn-primary">Book Demo <ArrowRight size={16} /></a>
-              <a href="#contact" className="btn btn-outline">Request a Diagnostic</a>
+              <Link to="/courses" className="btn btn-primary">{t('home.hero.cta1')} <ArrowRight size={16} /></Link>
+              <Link to="/partners" className="btn btn-outline">{t('nav.partnerCta')}</Link>
             </div>
+            <p className="hero-langs">{t('home.hero.langs')}</p>
 
-            <div className="hero-metrics">
-              <div className="metric">
-                <TrendingUp size={20} className="metric-icon" />
-                <div>
-                  <strong>15-25%</strong>
-                  <span>Productivity Uplift</span>
-                </div>
-              </div>
-              <div className="metric">
-                <Database size={20} className="metric-icon" />
-                <div>
-                  <strong>80%</strong>
-                  <span>Knowledge Retention</span>
-                </div>
-              </div>
-              <div className="metric">
-                <Users size={20} className="metric-icon" />
-                <div>
-                  <strong>500K+</strong>
-                  <span>Users Trained</span>
-                </div>
-              </div>
-              <div className="metric">
-                <Target size={20} className="metric-icon" />
-                <div>
-                  <strong>50+</strong>
-                  <span>Enterprises</span>
-                </div>
-              </div>
-            </div>
+            <ul className="hero-facts">
+              <li className="hero-fact"><Clock size={20} aria-hidden="true" /> {t('home.fact1')}</li>
+              <li className="hero-fact"><Smartphone size={20} aria-hidden="true" /> {t('home.fact2')}</li>
+              <li className="hero-fact"><Users size={20} aria-hidden="true" /> {t('home.fact3')}</li>
+            </ul>
           </div>
 
           <div className="hero-visual animate-fade-in-up delay-200">
-            {/* Abstract Dashboard/App visualization */}
+            {/* Sample app screens in three languages (illustrative data) */}
             <div className="flower-mockup-container">
               {/* Left - Odia */}
-              <div className="mockup-phone glass shadow-lg side-phone left-phone">
+              <div className="mockup-phone glass shadow-lg side-phone left-phone" aria-hidden="true">
                 <div className="phone-header">
                   <span>ଶୁଭ ସକାଳ,<br /><strong>ରବି କୁମାର</strong></span>
                   <div className="avatar">RK</div>
@@ -137,15 +84,13 @@ function HomePage() {
                 </div>
                 <div className="phone-card dark">
                   <div className="card-title text-white">ସମନ୍ୱିତ କୀଟ ପରିଚାଳନା</div>
-                  <button className="btn btn-primary btn-small">ପୁନରାରମ୍ଭ କରନ୍ତୁ</button>
+                  <button className="btn btn-primary btn-small" tabIndex={-1}>ପୁନରାରମ୍ଭ କରନ୍ତୁ</button>
                 </div>
-
                 <div className="phone-card shadow-sm" style={{ background: 'white' }}>
                   <div className="card-title">ଅନୁପାଳନ ସ୍କୋର</div>
                   <div className="score-val">92%</div>
                   <span className="badge-green">ଉତ୍କୃଷ୍ଟ</span>
                 </div>
-
                 <div className="phone-card shadow-sm" style={{ background: 'white' }}>
                   <div className="card-title">ସକ୍ରିୟ ଉପଭୋକ୍ତା</div>
                   <div className="score-val" style={{ fontSize: '1.5rem' }}>12,846</div>
@@ -154,7 +99,7 @@ function HomePage() {
               </div>
 
               {/* Center - English */}
-              <div className="mockup-phone glass shadow-lg center-phone">
+              <div className="mockup-phone glass shadow-lg center-phone" aria-hidden="true">
                 <div className="phone-header">
                   <span>Good morning,<br /><strong>Ravi Kumar</strong></span>
                   <div className="avatar">RK</div>
@@ -165,16 +110,13 @@ function HomePage() {
                 </div>
                 <div className="phone-card dark">
                   <div className="card-title text-white">Integrated Pest Management</div>
-                  <button className="btn btn-primary btn-small">Resume</button>
+                  <button className="btn btn-primary btn-small" tabIndex={-1}>Resume</button>
                 </div>
-
-                {/* Now placed inside the center phone instead of floating */}
                 <div className="phone-card shadow-sm" style={{ background: 'white' }}>
                   <div className="card-title">Compliance Score</div>
                   <div className="score-val">92%</div>
                   <span className="badge-green">Excellent</span>
                 </div>
-
                 <div className="phone-card shadow-sm" style={{ background: 'white' }}>
                   <div className="card-title">Active Users</div>
                   <div className="score-val" style={{ fontSize: '1.5rem' }}>12,846</div>
@@ -183,7 +125,7 @@ function HomePage() {
               </div>
 
               {/* Right - Hindi */}
-              <div className="mockup-phone glass shadow-lg side-phone right-phone">
+              <div className="mockup-phone glass shadow-lg side-phone right-phone" aria-hidden="true">
                 <div className="phone-header">
                   <span>सुप्रभात,<br /><strong>रवि कुमार</strong></span>
                   <div className="avatar">RK</div>
@@ -194,15 +136,13 @@ function HomePage() {
                 </div>
                 <div className="phone-card dark">
                   <div className="card-title text-white">एकीकृत कीट प्रबंधन</div>
-                  <button className="btn btn-primary btn-small">फिर से शुरू करें</button>
+                  <button className="btn btn-primary btn-small" tabIndex={-1}>फिर से शुरू करें</button>
                 </div>
-
                 <div className="phone-card shadow-sm" style={{ background: 'white' }}>
                   <div className="card-title">अनुपालन स्कोर</div>
                   <div className="score-val">92%</div>
                   <span className="badge-green">उत्कृष्ट</span>
                 </div>
-
                 <div className="phone-card shadow-sm" style={{ background: 'white' }}>
                   <div className="card-title">सक्रिय उपयोगकर्ता</div>
                   <div className="score-val" style={{ fontSize: '1.5rem' }}>12,846</div>
@@ -210,186 +150,269 @@ function HomePage() {
                 </div>
               </div>
             </div>
+            <p className="sample-caption">{t('home.sample')}</p>
           </div>
         </div>
       </section>
 
-      {/* THE CHALLENGE — Phase 2 */}
-      <TheChallenge />
-
-      {/* OUR SOLUTION — Phase 2 */}
-      <OurSolution />
-
-      {/* PLATFORM EXPERIENCE */}
-      <section className="platform bg-section-alt" id="platform">
-        <div className="container">
-          <div className="section-header center">
-            <div className="tag">PLATFORM EXPERIENCE</div>
-            <h2>Everything you need. All in one place.</h2>
+      {/* VISION */}
+      <section className="page-section band" id="vision">
+        <div className="container partner-band">
+          <div>
+            <div className="tag">{t('vm.vision.h2')}</div>
+            <p className="vision-statement" style={{ marginBottom: 0 }}>{t('vm.vision.text')}</p>
           </div>
-          <div className="platform-grid">
-            <div className="platform-features">
-              <div className="plat-feat-item">
-                <img src={performanceImg} alt="Smart Dashboards" className="plat-feat-img" />
-                <div>
-                  <h4>Smart Dashboards</h4>
-                  <p>Track progress, performance and impact in real-time.</p>
-                </div>
+          <Link to="/about#vision" className="btn btn-outline">{t('home.vision.more')} <ArrowRight size={16} /></Link>
+        </div>
+      </section>
+
+      {/* WHY AGROSTART */}
+      <section className="page-section" id="why">
+        <div className="container">
+          <div className="tag">{t('home.why.tag')}</div>
+          <h2>{t('home.why.h2')}</h2>
+          <div className="card-grid four" style={{ marginTop: '1.5rem' }}>
+            {WHY.map(({ id, icon: Icon }) => (
+              <div className="info-card" key={id}>
+                <div className="icon-wrapper"><Icon size={22} aria-hidden="true" /></div>
+                <h3>{t(`home.why.${id}.title`)}</h3>
+                <p>{t(`home.why.${id}.text`)}</p>
               </div>
-              <div className="plat-feat-item">
-                <img src={microLearningImg} alt="Localized Content" className="plat-feat-img" />
-                <div>
-                  <h4>Localized Content</h4>
-                  <p>Deliver training in regional languages.</p>
-                </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHO IT IS FOR */}
+      <section className="page-section alt" id="who">
+        <div className="container">
+          <div className="tag">{t('home.who.tag')}</div>
+          <h2>{t('home.who.h2')}</h2>
+          <div className="card-grid fit" style={{ marginTop: '1.5rem' }}>
+            {WHO.map(({ id, icon: Icon }) => (
+              <div className="info-card" key={id}>
+                <div className="icon-wrapper"><Icon size={22} aria-hidden="true" /></div>
+                <h3>{t(`home.who.${id}.title`)}</h3>
+                <p>{t(`home.who.${id}.text`)}</p>
               </div>
-              <div className="plat-feat-item">
-                <img src={fieldForceImg} alt="Mobile First" className="plat-feat-img" />
-                <div>
-                  <h4>Mobile First</h4>
-                  <p>Built for the field. Works offline too.</p>
-                </div>
-              </div>
-              <div className="plat-feat-item">
-                <img src={learningPathsImg} alt="AI Recommendations" className="plat-feat-img" />
-                <div>
-                  <h4>AI Recommendations</h4>
-                  <p>Personalized learning paths for every user.</p>
-                </div>
-              </div>
+            ))}
+          </div>
+          <p className="section-intro" style={{ marginTop: '1.5rem' }}>{t('home.who.also')}</p>
+          <p>
+            <Link to="/about#audience" className="btn btn-outline">{t('home.who.more')} <ArrowRight size={16} /></Link>
+          </p>
+        </div>
+      </section>
+
+      {/* FEATURED COURSES */}
+      <section className="page-section" id="courses">
+        <div className="container">
+          <div className="tag">{t('home.courses.tag')}</div>
+          <h2>{t('home.courses.h2')}</h2>
+          <p className="section-intro">{t('home.courses.note')}</p>
+          <div className="card-grid">
+            {featured.map((c) => <CourseCard course={c} key={c.id} />)}
+          </div>
+          <p style={{ marginTop: '2rem' }}>
+            <Link to="/courses" className="btn btn-outline">{t('home.courses.all')} <ArrowRight size={16} /></Link>
+          </p>
+        </div>
+      </section>
+
+      {/* LEARNER JOURNEY */}
+      <section className="page-section alt" id="how">
+        <div className="container">
+          <div className="tag">{t('home.how.tag')}</div>
+          <h2>{t('home.how.h2')}</h2>
+
+          {[[LEARNING_STAGES, 'how.group.learn', 'learn'], [LIVELIHOOD_STAGES, 'how.group.live', 'live']].map(([stages, label, kind]) => (
+            <div className="journey-group" key={kind}>
+              <h3 className="stage-group">{t(label)}</h3>
+              <ol className={`journey-row journey-${kind}`}>
+                {stages.map((n) => (
+                  <li className="journey-stage" key={n}>
+                    <span className="step-num" aria-hidden="true">{n}</span>
+                    <strong>{t(`how.s${n}.title`)}</strong>
+                    <span>{t(`how.short.${n}`)}</span>
+                  </li>
+                ))}
+              </ol>
             </div>
-          </div>
+          ))}
+
+          <p className="journey-support"><strong>{t('how.support.strong')}</strong> {t('how.support.text')}</p>
+          <p>
+            <Link to="/how-it-works" className="btn btn-outline">{t('home.how.more')} <ArrowRight size={16} /></Link>
+          </p>
         </div>
       </section>
 
-      {/* SOLUTIONS GRID */}
-      <section className="solutions-section" id="services">
-        <div className="container">
-          <div className="section-header">
-            <div className="tag">OUR SOLUTIONS</div>
-            <h2>Solutions for every role in the agri value chain.</h2>
+      {/* PARTNER CALL TO ACTION */}
+      <section className="page-section band" id="partner-cta">
+        <div className="container partner-band">
+          <div>
+            <div className="tag">{t('home.partners.tag')}</div>
+            <h2>{t('home.partners.h2')}</h2>
+            <p>{t('home.partners.p')}</p>
           </div>
-
-          <div className="solutions-grid">
-            <Link to="/services#field-force" className="solution-card-link">
-              <div className="solution-card">
-                <div className="icon-wrapper"><Users size={24} /></div>
-                <h3>Frontline Field-Force Enablement</h3>
-                <p>Continuous capability and performance support for agribusiness field teams, tied to real job tasks and KPIs.</p>
-                <ArrowRight className="card-arrow" size={20} />
-              </div>
-            </Link>
-
-            <Link to="/services#product-launch" className="solution-card-link">
-              <div className="solution-card">
-                <div className="icon-wrapper"><Zap size={24} /></div>
-                <h3>Product &amp; New-Launch Enablement</h3>
-                <p>Rapid, role-specific onboarding of new product knowledge for field teams, dealers, and distributors.</p>
-                <ArrowRight className="card-arrow" size={20} />
-              </div>
-            </Link>
-
-            <Link to="/services#compliance" className="solution-card-link">
-              <div className="solution-card">
-                <div className="icon-wrapper"><CheckCircle2 size={24} /></div>
-                <h3>Role-Based &amp; Compliance Training</h3>
-                <p>Technical accuracy, compliance, and process adherence for agri-input and frontline roles.</p>
-                <ArrowRight className="card-arrow" size={20} />
-              </div>
-            </Link>
-
-            <Link to="/services#farmer-capability" className="solution-card-link">
-              <div className="solution-card">
-                <div className="icon-wrapper"><Leaf size={24} /></div>
-                <h3>Farmer Capability Programmes</h3>
-                <p>Package-of-practice, pest and disease, and crop-cycle training for farmers.</p>
-                <ArrowRight className="card-arrow" size={20} />
-              </div>
-            </Link>
-
-            <Link to="/services#fpo" className="solution-card-link">
-              <div className="solution-card">
-                <div className="icon-wrapper"><Users size={24} /></div>
-                <h3>FPO Leadership &amp; Business Training</h3>
-                <p>Governance, leadership, and business-planning capability for producer organisations.</p>
-                <ArrowRight className="card-arrow" size={20} />
-              </div>
-            </Link>
-
-            <Link to="/services#agripreneurship" className="solution-card-link">
-              <div className="solution-card">
-                <div className="icon-wrapper"><GraduationCap size={24} /></div>
-                <h3>Agripreneurship &amp; Youth Skilling</h3>
-                <p>Employability, digital literacy, and enterprise-development pathways for rural youth.</p>
-                <ArrowRight className="card-arrow" size={20} />
-              </div>
-            </Link>
-          </div>
+          <Link to="/partners" className="btn btn-primary">{t('nav.partnerCta')} <ArrowRight size={16} /></Link>
         </div>
       </section>
 
-      {/* IMPACT SECTION */}
-      <section className="impact bg-section-alt" id="impact">
+      {/* IMPACT: approach and goals. Real, dated numbers will replace the placeholders. */}
+      <section className="impact" id="impact">
         <div className="container">
           <div className="section-header center">
-            <div className="tag">IMPACT THAT MATTERS</div>
-            <h2>Real impact. Measurable results.</h2>
+            <div className="tag">{t('home.impact.tag')}</div>
+            <h2>{t('home.impact.h2')}</h2>
           </div>
-
           <div className="impact-grid">
-            <div className="impact-stat-box shadow-sm glass">
-              <span className="stat-label">Skills Upliftment</span>
-              <div className="stat-value highlight-green">+25.4%</div>
-              <span className="stat-desc">vs last quarter</span>
-            </div>
-            <div className="impact-stat-box shadow-sm glass">
-              <span className="stat-label">Knowledge Retention</span>
-              <div className="stat-value">80%</div>
-              <span className="stat-desc">improvement</span>
-            </div>
-            <div className="impact-stat-box shadow-sm glass">
-              <span className="stat-label">Compliance Errors</span>
-              <div className="stat-value">-32%</div>
-              <span className="stat-desc">Reduction</span>
-            </div>
-            <div className="impact-stat-box shadow-sm glass">
-              <span className="stat-label">Training Completion</span>
-              <div className="stat-value highlight-green">+60%</div>
-              <span className="stat-desc">from last quarter</span>
-            </div>
+            {[1, 3, 4].map((n) => (
+              <div className="impact-stat-box shadow-sm glass" key={n}>
+                <span className="stat-label">{t(`home.impact.i${n}.label`)}</span>
+                <div className="stat-value highlight-green">{t(`home.impact.i${n}.value`)}</div>
+                <span className="stat-desc">{t(`home.impact.i${n}.desc`)}</span>
+              </div>
+            ))}
           </div>
+          <p className="illustrative-note">{t('home.impact.note')}</p>
+          <p className="impact-more"><Link to="/impact" className="btn btn-outline">{t('home.impact.more')} <ArrowRight size={16} /></Link></p>
         </div>
       </section>
 
-      {/* CONTACT SECTION */}
+      {/* CONTACT */}
       <Contact />
-
     </div>
   );
 }
 
 function NotFoundPage() {
+  const { t } = useLanguage();
   return (
     <div className="app">
       <div className="not-found-page">
         <div className="not-found-inner">
           <div className="not-found-emoji">🌾</div>
-          <h1>404 — Page Not Found</h1>
-          <p>Looks like this field hasn't been planted yet.</p>
-          <Link to="/" className="btn btn-primary">Back to Home <ArrowRight size={16} /></Link>
+          <h1>{t('notfound.title')}</h1>
+          <p>{t('notfound.text')}</p>
+          <Link to="/" className="btn btn-primary">{t('notfound.back')} <ArrowRight size={16} /></Link>
         </div>
       </div>
     </div>
   );
 }
 
+// Page-name keys used to build the browser tab title for each route.
+const TITLE_KEYS = {
+  '/courses': 'nav.courses',
+  '/how-it-works': 'nav.howItWorks',
+  '/services': 'nav.services',
+  '/partners': 'nav.partners',
+  '/about': 'nav.about',
+  '/impact': 'nav.impact',
+  '/pathways': 'nav.pathways',
+  '/privacy': 'legal.privacy.title',
+  '/terms': 'legal.terms.title',
+  '/refund': 'legal.refund.title',
+  '/accessibility': 'legal.accessibility.title',
+};
+
+// Shared header, footer and WhatsApp button around every page. It is the element of the
+// "/:lang" route, so /hi/..., /or/... and /en/... all come through here. A first path
+// segment that is not a supported language (an old link like /courses) is sent to the
+// visitor's remembered language, e.g. /courses -> /hi/courses.
+function Layout() {
+  const { lang: langParam } = useParams();
+  const { pathname, search, hash } = useLocation();
+  const { t, lang, preferredLang } = useLanguage();
+  const valid = LANG_CODES.includes(langParam);
+  const rest = splitLang(pathname).rest.replace(/\/+$/, '') || '/';
+  const last = useRef({ rest: null, hash: null });
+
+  // Scroll to the anchor or the top, but not when only the language changed.
+  useEffect(() => {
+    if (!valid) return;
+    if (last.current.rest === rest && last.current.hash === hash) return;
+    last.current = { rest, hash };
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView();
+        return;
+      }
+    }
+    window.scrollTo(0, 0);
+  }, [valid, rest, hash]);
+
+  // Title, description, canonical and language alternates for this page.
+  useEffect(() => {
+    if (!valid) return;
+    const site = t('meta.siteTitle');
+    const courseId = rest.match(/^\/courses\/([^/]+)$/)?.[1];
+    let page = null;
+    let description = t('footer.tagline');
+    if (courseId && getCourse(courseId)) {
+      page = t(`courses.${courseId}.title`);
+      description = t(`courses.${courseId}.blurb`);
+    } else if (TITLE_KEYS[rest]) {
+      page = t(TITLE_KEYS[rest]);
+    } else if (rest !== '/') {
+      page = t('notfound.title');
+    }
+    applyPageMeta({ title: page ? `${page} | ${site}` : site, description, lang, rest });
+  }, [valid, t, lang, rest]);
+
+  if (!valid) return <Navigate to={`/${preferredLang}${pathname}${search}${hash}`} replace />;
+
+  const skipToMain = (e) => {
+    e.preventDefault();
+    const main = document.getElementById('main');
+    main?.focus();
+    main?.scrollIntoView();
+  };
+
+  return (
+    <>
+      <a href="#main" className="skip-link" onClick={skipToMain}>{t('a11y.skip')}</a>
+      <SiteHeader />
+      <main id="main" tabIndex={-1}>
+        <PageBoundary resetKey={pathname}>
+          <Suspense fallback={<p className="page-loading" role="status">{t('a11y.loading')}</p>}>
+            <Outlet />
+          </Suspense>
+        </PageBoundary>
+      </main>
+      <SiteFooter />
+      <WhatsAppButton />
+    </>
+  );
+}
+
+function RootRedirect() {
+  const { preferredLang } = useLanguage();
+  return <Navigate to={`/${preferredLang}`} replace />;
+}
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/services" element={<ServicesPage />} />
-      <Route path="/resources" element={<ResourcesPage />} />
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="/" element={<RootRedirect />} />
+      <Route path="/:lang" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="courses" element={<CoursesPage />} />
+        <Route path="courses/:id" element={<CourseDetailPage />} />
+        <Route path="how-it-works" element={<HowItWorksPage />} />
+        <Route path="services" element={<ServicesPage />} />
+        <Route path="partners" element={<PartnersPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="impact" element={<ImpactPage />} />
+        <Route path="pathways" element={<PathwaysPage />} />
+        <Route path="privacy" element={<LegalPage pageKey="privacy" />} />
+        <Route path="terms" element={<LegalPage pageKey="terms" />} />
+        <Route path="refund" element={<LegalPage pageKey="refund" />} />
+        <Route path="accessibility" element={<LegalPage pageKey="accessibility" />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
     </Routes>
   );
 }
