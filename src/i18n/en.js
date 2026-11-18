@@ -732,6 +732,7 @@ const en = {
   'how.m.cert.text': 'Finish the course and assessment to earn a certificate. Who issues it, AgroStart or a partner institution, is being confirmed.',
   'partners.why.tr.title': 'For trainers and subject experts',
   'partners.why.tr.text': 'Join our trainer network to teach short courses and lead classroom and field sessions in your area.',
+  'nav.contactUs': 'Contact us',
 };
 
 export default en;

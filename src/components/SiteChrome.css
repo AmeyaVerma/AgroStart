@@ -65,7 +65,7 @@
 .header .nav-more-menu a:hover { background: var(--pale-sage); }
 .header .nav-more-menu a.active { background: var(--pale-sage); }
 
-@media (max-width: 1360px) {
+@media (max-width: 1400px) {
   .header .nav,
   .header .header-actions { display: none; }
   .hamburger-btn { display: flex; }
@@ -180,7 +180,7 @@
 .lang-btn:hover { background: var(--pale-sage); }
 .lang-btn.active { background: var(--fresh-green); color: #ffffff; }
 
-@media (max-width: 1360px) {
+@media (max-width: 1400px) {
   .header-inner { gap: 0.75rem; }
   .logo { margin-right: auto; }
 }
@@ -224,7 +224,7 @@
 .footer-logo { width: 44px; height: 44px; padding: 3px; background: #ffffff; border-radius: 10px; object-fit: contain; }
 
 /* Bigger logo on desktop; less header padding keeps the bar the same height */
-@media (min-width: 1361px) {
+@media (min-width: 1401px) {
   .header { padding: 0.5rem 0; }
   .header .logo-mark { width: 72px; height: 72px; }
   .header .logo-title { font-size: 1.25rem; }
