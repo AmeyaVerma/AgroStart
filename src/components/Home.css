@@ -25,9 +25,9 @@
 /* Quick facts strip */
 .fact-strip {
   margin: 3.5rem auto 0;
-  max-width: 1040px;
+  max-width: 960px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   background: #ffffff;
   border: 1px solid var(--sage-line);
   border-radius: var(--radius-lg);
@@ -105,9 +105,8 @@
 }
 
 @media (max-width: 900px) {
-  .fact-strip { grid-template-columns: repeat(2, 1fr); }
-  .fact-strip li:nth-child(3) { border-left: none; }
-  .fact-strip li:nth-child(n + 3) { border-top: 1px solid var(--sage-line); }
+  .fact-strip { grid-template-columns: 1fr; }
+  .fact-strip li + li { border-left: none; border-top: 1px solid var(--sage-line); }
   .three-steps { grid-template-columns: 1fr; }
 }
 

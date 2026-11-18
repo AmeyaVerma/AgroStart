@@ -12,7 +12,7 @@ import './Home.css';
 // why AgroStart, how it works (3 steps), learning pathways, impact and stories,
 // partners, and a call to action for institutions and funders.
 
-const FACTS = ['f1', 'f2', 'f3', 'f4'];
+const FACTS = ['f1', 'f2', 'f3'];
 
 const WHY = [
   { id: 'y1', icon: Users },
