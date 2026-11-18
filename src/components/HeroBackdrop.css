@@ -1,0 +1,60 @@
+/* Hero background: a looping clip or the animated growing-crops scene, under a soft veil */
+
+.home-hero { position: relative; isolation: isolate; }
+.home-hero > .container { position: relative; z-index: 1; }
+
+.hero-media { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+.hero-video, .hero-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The veil keeps the headline and text above 4.5:1 contrast over any clip: solid white
+   behind the text, fading to clear toward the bottom so the picture shows through. */
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.86) 40%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Growing-crops scene: sprouts rise one after another, hold, then reset (6s loop) */
+.scene-sprout .sprout-body {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sprout-grow 6s ease-in-out infinite;
+  animation-delay: inherit;
+}
+.scene-sprout { animation: none; }
+.scene-sprout .sprout-body { animation-delay: inherit; }
+
+@keyframes sprout-grow {
+  0%, 8% { transform: scale(0.05); opacity: 0; }
+  40% { transform: scale(1); opacity: 1; }
+  85% { transform: scale(1.04) rotate(1deg); opacity: 1; }
+  100% { transform: scale(1.04) rotate(0deg); opacity: 0; }
+}
+
+.scene-sun { animation: sun-drift 6s ease-in-out infinite alternate; }
+@keyframes sun-drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-30px, 10px); }
+}
+
+.scene-rows { animation: rows-fade 6s ease-in-out infinite; }
+@keyframes rows-fade {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-sprout .sprout-body { animation: none; transform: none; opacity: 1; }
+  .scene-sun, .scene-rows { animation: none; }
+}
+
+/* Quick-facts strip overlaps the bottom of the hero so the scene shows above it */
+.home-hero .fact-strip { position: relative; z-index: 2; margin-bottom: -3rem; }
+.home-hero + .page-section { padding-top: 6rem; }

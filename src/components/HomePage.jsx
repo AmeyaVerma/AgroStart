@@ -4,6 +4,7 @@ import { Link } from '../i18n/LocalizedLink';
 import { useLanguage } from '../i18n/LanguageContext';
 import { COURSES, FEATURED_COURSE_IDS } from '../data/courses';
 import CourseCard from './CourseCard';
+import HeroBackdrop from './HeroBackdrop';
 import './Pages.css';
 import './Home.css';
 
@@ -42,6 +43,7 @@ export default function HomePage() {
     <div className="app">
       {/* HERO: one calm headline, one line of text, two buttons */}
       <section className="home-hero" id="hero">
+        <HeroBackdrop />
         <div className="container">
           <h1>{t('home.hero.title')}</h1>
           <p className="home-hero-text">{t('home.hero.text')}</p>
