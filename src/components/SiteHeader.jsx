@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from '../i18n/LocalizedLink';
-import { Menu, X, BookOpen, ListChecks, Compass, Briefcase, Library, Handshake, Mail } from 'lucide-react';
+import { Menu, X, BookOpen, ListChecks, Briefcase, Library, Mail } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import logoMark from '../assets/logo-mark.webp';
 import LanguageSwitcher from './LanguageSwitcher';
 import './SiteChrome.css';
 
 // Every link has an icon so people who read little can still find their way (brief, section 4).
-// Menu follows the website framework; Services stays as its own page. About, Impact and
-// Learning pathways are reached from the footer and from links on the pages.
+// Programmes, For partners (the header button), About, Impact and Learning pathways are
+// reached from the button, the footer and links on the pages.
 const NAV = [
   { to: '/courses', key: 'nav.courses', icon: BookOpen },
   { to: '/how-it-works', key: 'nav.howItWorks', icon: ListChecks },
-  { to: '/programmes', key: 'nav.programmes', icon: Compass },
   { to: '/services', key: 'nav.services', icon: Briefcase },
   { to: '/resources', key: 'nav.resources', icon: Library },
-  { to: '/partners', key: 'nav.partnerCta', icon: Handshake },
   { to: '/contact', key: 'nav.contactUs', icon: Mail },
 ];
 
@@ -47,7 +45,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="header-actions">
-          <Link to="/courses" className="btn btn-primary">{t('nav.explore')}</Link>
+          <Link to="/partners" className="btn btn-primary">{t('nav.partnerCta')}</Link>
         </div>
 
         <LanguageSwitcher />
@@ -66,7 +64,7 @@ export default function SiteHeader() {
         <div className="mobile-nav-drawer">
           {NAV.map(renderLink)}
           <div className="mobile-nav-actions">
-            <Link to="/courses" className="btn btn-primary" onClick={close}>{t('nav.explore')}</Link>
+            <Link to="/partners" className="btn btn-primary" onClick={close}>{t('nav.partnerCta')}</Link>
           </div>
         </div>
       )}
