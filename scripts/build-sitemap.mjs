@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path';
 
 const SITE = 'https://www.agrostart.in';
 const LANGS = ['en', 'hi', 'or'];
-const PAGES = ['', '/courses', '/how-it-works', '/services', '/partners', '/about', '/impact', '/pathways', '/privacy', '/terms', '/refund', '/accessibility'];
+const PAGES = ['', '/courses', '/how-it-works', '/services', '/partners', '/about', '/impact', '/pathways', '/programmes', '/resources', '/contact', '/privacy', '/terms', '/refund', '/accessibility'];
 
 const url = (lang, page) => `${SITE}/${lang}${page}`;
 const today = new Date().toISOString().slice(0, 10);

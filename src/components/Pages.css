@@ -147,7 +147,7 @@
 .prose h2 { font-size: 1.5rem; margin: 2.25rem 0 0.75rem; }
 .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary); }
 .prose li { margin-bottom: 0.4rem; }
-.prose a { color: var(--forest-green); text-decoration: underline; }
+.prose a:not(.btn) { color: var(--forest-green); text-decoration: underline; }
 
 .tbc { background: var(--light-warm-tint); padding: 0 0.3rem; border-radius: 4px; font-weight: 600; color: var(--text-main); }
 
@@ -290,3 +290,27 @@
 
 .vision-statement { font-size: 1.35rem; line-height: 1.5; max-width: 860px; font-weight: 600; color: var(--forest-green); margin-bottom: 2rem; }
 .vision-short { font-size: 1.1rem; font-weight: 700; color: var(--forest-green); margin: 0.5rem 0 0; }
+
+/* Expandable modules on the course detail page */
+.module-list { display: grid; gap: 0.75rem; }
+.module { background: var(--bg-card); border: 1px solid var(--border-grey-green); border-radius: var(--radius-md); }
+.module summary { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; cursor: pointer; list-style: none; min-height: 56px; }
+.module summary::-webkit-details-marker { display: none; }
+.module summary small { display: block; color: var(--text-light); font-size: 0.85rem; }
+.module summary strong { font-weight: 600; }
+.module .step-num { width: 40px; height: 40px; font-size: 1rem; flex-shrink: 0; }
+.module p { margin: 0; padding: 0 1.25rem 1.25rem 4.5rem; color: var(--text-light); }
+@media (max-width: 600px) { .module p { padding-left: 1.25rem; } }
+
+/* Course card picture area */
+.course-thumb {
+  height: 130px;
+  margin: -1.75rem -1.75rem 0.75rem;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: linear-gradient(135deg, var(--pale-sage) 0%, var(--mint-mist) 100%);
+  color: var(--forest-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

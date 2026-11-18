@@ -1,0 +1,51 @@
+/* Course catalogue: search, filter sidebar and card grid (inspired by Wikifarmer Academy) */
+
+.catalogue-hero { text-align: center; }
+.catalogue-hero h1, .catalogue-hero p { margin-left: auto; margin-right: auto; }
+
+.course-search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 620px;
+  margin: 2rem auto 0;
+  padding: 0 1.25rem;
+  background: #ffffff;
+  border: 1.5px solid var(--sage-line);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+  color: var(--forest-green);
+}
+.course-search:focus-within { border-color: var(--fresh-green); }
+.course-search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 54px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: var(--text-main);
+}
+
+.catalogue { display: grid; grid-template-columns: 250px 1fr; gap: 2.5rem; align-items: start; }
+
+.catalogue-filters { position: sticky; top: 7.5rem; }
+.filters-toggle { display: none; width: 100%; }
+.filters-body { display: flex; flex-direction: column; gap: 1.25rem; }
+.filter-fieldset { border: none; padding: 0; margin: 0; }
+.filter-fieldset legend { font-weight: 600; color: var(--forest-green); margin-bottom: 0.4rem; padding: 0; }
+.filter-option { display: flex; align-items: center; gap: 0.6rem; min-height: 36px; cursor: pointer; color: var(--text-main); font-size: 0.95rem; }
+.filter-option input { width: 18px; height: 18px; accent-color: var(--fresh-green); flex-shrink: 0; }
+
+.result-count { color: var(--text-light); margin-bottom: 1rem; }
+.catalogue-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.empty-state p { margin-bottom: 1rem; }
+
+@media (max-width: 900px) {
+  .catalogue { grid-template-columns: 1fr; gap: 1.5rem; }
+  .catalogue-filters { position: static; }
+  .filters-toggle { display: inline-flex; }
+  .filters-body { display: none; margin-top: 1rem; padding: 1.25rem; background: var(--mint-mist); border-radius: var(--radius-md); }
+  .filters-body.open { display: flex; }
+}

@@ -1,47 +1,74 @@
 import React, { useMemo, useState } from 'react';
-import { Users, MapPin } from 'lucide-react';
+import { Users, MapPin, Search, SlidersHorizontal } from 'lucide-react';
 import { Link } from '../i18n/LocalizedLink';
 import { useLanguage } from '../i18n/LanguageContext';
 import { COURSES } from '../data/courses';
+import { durationGroup, modeGroup } from '../data/courses-meta';
 import CourseCard from './CourseCard';
 import './Pages.css';
+import './Catalogue.css';
 
 const PATHWAYS = ['p1', 'p2', 'p3', 'p4'];
 
-const uniq = (key) => ['All', ...Array.from(new Set(COURSES.flatMap((c) => [].concat(c[key]))))];
+const uniq = (key) => Array.from(new Set(COURSES.flatMap((c) => [].concat(c[key]))));
 
-function Select({ id, label, options, value, onChange, t }) {
-  return (
-    <div className="filter-group">
-      <label htmlFor={`f-${id}`}>{label}</label>
-      <select id={`f-${id}`} value={value} onChange={onChange}>
-        {options.map((o) => <option key={o} value={o}>{t(`opt.${o}`)}</option>)}
-      </select>
-    </div>
-  );
-}
+// Filter groups: each has a key, a label key and the option values. Option labels come
+// from "opt.*" (or "opt.dur.*" and "opt.mode.*" for the derived groups).
+const GROUPS = [
+  { key: 'topic', label: 'courses.f.topic', options: uniq('topic'), prefix: 'opt.' },
+  { key: 'languages', label: 'courses.f.language', options: uniq('languages'), prefix: 'opt.' },
+  { key: 'duration', label: 'courses.f.duration', options: ['short', 'medium', 'long'], prefix: 'opt.dur.' },
+  { key: 'level', label: 'courses.f.level', options: uniq('level'), prefix: 'opt.' },
+  { key: 'mode', label: 'courses.f.mode', options: ['online', 'ground', 'blended'], prefix: 'opt.mode.' },
+  { key: 'price', label: 'courses.f.price', options: uniq('price'), prefix: 'opt.' },
+];
+
+const EMPTY = { topic: 'All', languages: 'All', duration: 'All', level: 'All', mode: 'All', price: 'All' };
+
+const matches = (c, f) =>
+  (f.topic === 'All' || c.topic === f.topic) &&
+  (f.languages === 'All' || c.languages.includes(f.languages)) &&
+  (f.duration === 'All' || durationGroup(c.hours) === f.duration) &&
+  (f.level === 'All' || c.level === f.level) &&
+  (f.mode === 'All' || modeGroup(c.mode) === f.mode) &&
+  (f.price === 'All' || c.price === f.price);
 
 export default function CoursesPage() {
   const { t, tn } = useLanguage();
-  const [f, setF] = useState({ languages: 'All', topic: 'All', level: 'All', price: 'All' });
-  const set = (k) => (e) => setF((p) => ({ ...p, [k]: e.target.value }));
+  const [f, setF] = useState(EMPTY);
+  const [query, setQuery] = useState('');
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
-  const shown = useMemo(
-    () => COURSES.filter((c) =>
-      (f.languages === 'All' || c.languages.includes(f.languages)) &&
-      (f.topic === 'All' || c.topic === f.topic) &&
-      (f.level === 'All' || c.level === f.level) &&
-      (f.price === 'All' || c.price === f.price)),
-    [f],
-  );
+  const shown = useMemo(() => {
+    const needle = query.trim().toLowerCase();
+    return COURSES.filter((c) => {
+      if (!matches(c, f)) return false;
+      if (!needle) return true;
+      const text = `${t(`courses.${c.id}.title`)} ${t(`courses.${c.id}.blurb`)} ${t(`opt.${c.topic}`)}`.toLowerCase();
+      return text.includes(needle);
+    });
+  }, [f, query, t]);
+
+  const active = Object.values(f).some((v) => v !== 'All') || query.trim() !== '';
+  const clear = () => { setF(EMPTY); setQuery(''); };
 
   return (
     <div className="app">
-      <section className="page-hero">
+      <section className="page-hero catalogue-hero">
         <div className="container">
-          <div className="tag">{t('courses.tag')}</div>
           <h1>{t('courses.h1')}</h1>
           <p>{t('courses.p')}</p>
+          <form className="course-search" role="search" onSubmit={(e) => e.preventDefault()}>
+            <label htmlFor="course-search" className="sr-only">{t('courses.search')}</label>
+            <Search size={20} aria-hidden="true" />
+            <input
+              id="course-search"
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={t('courses.searchPh')}
+            />
+          </form>
         </div>
       </section>
 
@@ -52,23 +79,52 @@ export default function CoursesPage() {
             <p>{t('courses.notice.p')}</p>
           </div>
 
-          <div className="filters" role="group" aria-label={t('courses.filters')}>
-            <Select id="languages" label={t('courses.f.language')} options={uniq('languages')} value={f.languages} onChange={set('languages')} t={t} />
-            <Select id="topic" label={t('courses.f.topic')} options={uniq('topic')} value={f.topic} onChange={set('topic')} t={t} />
-            <Select id="level" label={t('courses.f.level')} options={uniq('level')} value={f.level} onChange={set('level')} t={t} />
-            <Select id="price" label={t('courses.f.price')} options={uniq('price')} value={f.price} onChange={set('price')} t={t} />
-          </div>
+          <div className="catalogue">
+            <aside className="catalogue-filters" aria-label={t('courses.filters')}>
+              <button
+                type="button"
+                className="btn btn-outline filters-toggle"
+                aria-expanded={filtersOpen}
+                onClick={() => setFiltersOpen((o) => !o)}
+              >
+                <SlidersHorizontal size={16} aria-hidden="true" /> {t('courses.filters')}
+              </button>
+              <div className={`filters-body${filtersOpen ? ' open' : ''}`}>
+                {GROUPS.map((g) => (
+                  <fieldset className="filter-fieldset" key={g.key}>
+                    <legend>{t(g.label)}</legend>
+                    {['All', ...g.options].map((o) => (
+                      <label className="filter-option" key={o}>
+                        <input
+                          type="radio"
+                          name={`f-${g.key}`}
+                          checked={f[g.key] === o}
+                          onChange={() => setF((p) => ({ ...p, [g.key]: o }))}
+                        />
+                        <span>{o === 'All' ? t('opt.All') : t(`${g.prefix}${o}`)}</span>
+                      </label>
+                    ))}
+                  </fieldset>
+                ))}
+                {active && <button type="button" className="btn btn-outline" onClick={clear}>{t('courses.clear')}</button>}
+              </div>
+            </aside>
 
-          <h2 className="sr-only">{t('nav.courses')}</h2>
-          <p aria-live="polite" className="sr-count">{tn('courses.count', shown.length)}</p>
-
-          {shown.length === 0 ? (
-            <div className="empty-state">{t('courses.empty')}</div>
-          ) : (
-            <div className="card-grid">
-              {shown.map((c) => <CourseCard course={c} key={c.id} />)}
+            <div className="catalogue-results">
+              <h2 className="sr-only">{t('nav.courses')}</h2>
+              <p aria-live="polite" className="result-count">{tn('courses.count', shown.length)}</p>
+              {shown.length === 0 ? (
+                <div className="empty-state">
+                  <p>{t('courses.empty')}</p>
+                  <button type="button" className="btn btn-outline" onClick={clear}>{t('courses.clear')}</button>
+                </div>
+              ) : (
+                <div className="card-grid catalogue-grid">
+                  {shown.map((c) => <CourseCard course={c} key={c.id} />)}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </section>
 

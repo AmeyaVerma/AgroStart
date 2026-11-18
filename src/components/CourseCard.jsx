@@ -1,14 +1,20 @@
 import React from 'react';
-import { Clock, Layers, Smartphone, ArrowRight } from 'lucide-react';
+import { Clock, Layers, Smartphone, ArrowRight, BookOpen } from 'lucide-react';
 import { Link } from '../i18n/LocalizedLink';
 import { useLanguage } from '../i18n/LanguageContext';
+import { TOPIC_ICONS } from '../data/courses-meta';
 import './Pages.css';
 
 // One course in the catalogue (used on the Courses page and the Home page).
+// The picture area holds a category icon until real course photos are available.
 export default function CourseCard({ course: c }) {
   const { t } = useLanguage();
+  const Icon = TOPIC_ICONS[c.topic] || BookOpen;
   return (
     <article className="info-card course-card">
+      <div className="course-thumb" aria-hidden="true">
+        <Icon size={44} strokeWidth={1.5} />
+      </div>
       <div className="pill-row">
         <span className="pill sample">{t('courses.sample')}</span>
         <span className={`pill${c.price === 'Free' ? ' free' : ''}`}>{t(`opt.${c.price}`)}</span>

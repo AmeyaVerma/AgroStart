@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from '../i18n/LocalizedLink';
-import { PlayCircle, ArrowRight } from 'lucide-react';
+import { PlayCircle, ArrowRight, Smartphone, MapPin, Award } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { LEARNING_STAGES, LIVELIHOOD_STAGES, STAGES_WITH_STATUS } from '../data/journey';
 import FaqSection from './FaqSection';
 import './Pages.css';
+import './Home.css';
 
 // One stage of the learner journey (AgroStart_Learner_Journey document).
 function Stage({ n, t }) {
@@ -35,6 +36,23 @@ export default function HowItWorksPage() {
       </section>
 
       <section className="page-section">
+        <div className="container">
+          <div className="center-head">
+            <h2>{t('how.m.h2')}</h2>
+          </div>
+          <div className="card-grid three">
+            {[['online', Smartphone], ['ground', MapPin], ['cert', Award]].map(([id, Icon]) => (
+              <div className="info-card" key={id}>
+                <div className="icon-wrapper"><Icon size={22} aria-hidden="true" /></div>
+                <h3>{t(`how.m.${id}.title`)}</h3>
+                <p>{t(`how.m.${id}.text`)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="page-section alt">
         <div className="container split">
           <div>
             <h2>{t('how.h2')}</h2>

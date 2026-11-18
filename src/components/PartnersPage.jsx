@@ -120,6 +120,11 @@ export default function PartnersPage() {
               <h3>{t('partners.why.gov.title')}</h3>
               <p>{t('partners.why.gov.text')}</p>
             </div>
+            <div className="info-card">
+              <div className="icon-wrapper"><UserCog size={22} aria-hidden="true" /></div>
+              <h3>{t('partners.why.tr.title')}</h3>
+              <p>{t('partners.why.tr.text')}</p>
+            </div>
           </div>
         </div>
       </section>

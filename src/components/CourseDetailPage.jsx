@@ -4,7 +4,9 @@ import { ArrowLeft, ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react
 import { Link } from '../i18n/LocalizedLink';
 import { useLanguage } from '../i18n/LanguageContext';
 import { localize } from '../i18n/routing';
-import { getCourse } from '../data/courses';
+import { COURSES, getCourse } from '../data/courses';
+import CourseCard from './CourseCard';
+import FaqSection from './FaqSection';
 import { SITE } from '../siteConfig';
 import './Pages.css';
 
@@ -50,6 +52,8 @@ export default function CourseDetailPage() {
   const pageUrl = `${SITE.url}${localize(lang, `/courses/${id}`)}`;
   const shareLink = `https://wa.me/?text=${encodeURIComponent(`${t('course.shareText', { title })} ${pageUrl}`)}`;
   const isFree = course.price === 'Free';
+  // Same category first, then any other course, up to three
+  const related = [...COURSES.filter((c) => c.id !== id && c.topic === course.topic), ...COURSES.filter((c) => c.id !== id && c.topic !== course.topic)].slice(0, 3);
 
   const rows = [
     [t('course.duration'), t('courses.hours', { n: course.hours })],
@@ -92,15 +96,15 @@ export default function CourseDetailPage() {
 
             <h2>{t('course.syllabus')}</h2>
             <p className="section-intro">{t('course.lessons')}</p>
-            <div className="steps" role="list">
+            <div className="module-list">
               {[1, 2, 3].map((n) => (
-                <div className="step" role="listitem" key={n}>
-                  <div className="step-num" aria-hidden="true">{n}</div>
-                  <div>
-                    <h3>{t('course.module', { n })}</h3>
-                    <p>{t(`courses.${id}.m${n}`)}</p>
-                  </div>
-                </div>
+                <details className="module" key={n} open={n === 1}>
+                  <summary>
+                    <span className="step-num" aria-hidden="true">{n}</span>
+                    <span><small>{t('course.module', { n })}</small><strong>{t(`courses.${id}.m${n}`)}</strong></span>
+                  </summary>
+                  <p>{t('course.moduleBody')}</p>
+                </details>
               ))}
             </div>
           </div>
@@ -119,6 +123,19 @@ export default function CourseDetailPage() {
           </aside>
         </div>
       </section>
+
+      {related.length > 0 && (
+        <section className="page-section alt">
+          <div className="container">
+            <h2>{t('course.related')}</h2>
+            <div className="card-grid">
+              {related.map((c) => <CourseCard course={c} key={c.id} />)}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <FaqSection />
     </div>
   );
 }

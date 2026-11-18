@@ -3,6 +3,7 @@ import { Target, Languages, Smartphone } from 'lucide-react';
 import { SITE } from '../siteConfig';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
+import './Home.css';
 
 // Who we serve, as short lists of group names (titles come from the dictionaries).
 const AUDIENCE = [
@@ -61,8 +62,29 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Phygital learning model */}
+      <section className="page-section alt" id="phygital">
+        <div className="container">
+          <div className="center-head">
+            <h2>{t('about.phy.h2')}</h2>
+            <p>{t('about.phy.p')}</p>
+          </div>
+          <div className="phygital-diagram">
+            {[['d1', null], ['d2', '+'], ['d3', '=']].map(([id, sign]) => (
+              <React.Fragment key={id}>
+                {sign && <span className="phygital-sign" aria-hidden="true">{sign}</span>}
+                <div className="info-card">
+                  <h3>{t(`about.phy.${id}.title`)}</h3>
+                  <p>{t(`about.phy.${id}.text`)}</p>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Vision, mission and goals (Vision, Mission and Goals document) */}
-      <section className="page-section alt" id="vision">
+      <section className="page-section" id="vision">
         <div className="container">
           <div className="tag">{t('vm.tag')}</div>
           <h2>{t('vm.vision.h2')}</h2>
@@ -97,7 +119,7 @@ export default function AboutPage() {
       </section>
 
       {/* Who we serve (target group document), kept short */}
-      <section className="page-section" id="audience">
+      <section className="page-section alt" id="audience">
         <div className="container">
           <h2>{t('about.audience.h2')}</h2>
           <p className="section-intro">{t('about.audience.intro')}</p>
@@ -117,8 +139,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="page-section alt">
+      <section className="page-section">
         <div className="container">
+          <h2>{t('about.team.h2')}</h2>
+          <p className="section-intro">{t('about.team.text')}</p>
           <h2>{t('about.trainers')}</h2>
           <div className="notice" role="note">
             <strong>{t('about.soon')}</strong>

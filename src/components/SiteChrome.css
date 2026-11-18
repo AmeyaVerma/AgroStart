@@ -230,3 +230,59 @@
   .header .logo-title { font-size: 1.25rem; }
   .header .logo-subtitle { font-size: 0.75rem; }
 }
+
+/* Newsletter sign-up in the footer */
+.footer-news { margin-top: 1.5rem; max-width: 380px; }
+.footer-news .footer-heading { color: #ffffff; font-size: 1rem; margin-bottom: 0.25rem; }
+.footer-news p { color: var(--text-on-dark); font-size: 0.92rem; margin: 0 0 0.75rem; }
+.footer-news-row { display: flex; gap: 0.5rem; }
+.footer-news-row input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid transparent;
+  font: inherit;
+  color: var(--text-main);
+  background: #ffffff;
+}
+.footer-news-row input[aria-invalid='true'] { border-color: #ffffff; outline: 2px solid #ffffff; }
+.footer-news-row .btn { min-height: 44px; padding: 0.5rem 1.1rem; background: #ffffff; color: var(--deep-green); box-shadow: none; }
+.footer-news-row .btn:hover { background: var(--pale-sage); transform: none; }
+.footer-news-error { font-weight: 600; color: #ffffff !important; }
+.footer-news-note { font-size: 0.82rem !important; opacity: 0.85; margin: 0.5rem 0 0 !important; }
+
+/* Cookie notice */
+.cookie-notice {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 120;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: #ffffff;
+  border: 1px solid var(--sage-line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+.cookie-notice p { margin: 0; font-size: 0.92rem; color: var(--text-main); }
+.cookie-notice a { color: var(--forest-green); text-decoration: underline; }
+.cookie-notice .btn { flex-shrink: 0; min-height: 44px; padding: 0.5rem 1.25rem; }
+@media (max-width: 600px) {
+  .cookie-notice { flex-direction: column; align-items: stretch; text-align: left; bottom: 5rem; }
+}
+
+/* Small phones: keep logo, language switcher and menu button inside the screen */
+@media (max-width: 420px) {
+  .header .logo-mark { width: 44px; height: 44px; }
+  .header .logo { gap: 0.5rem; }
+  .header .logo-title { font-size: 1.05rem; }
+  .header-inner { gap: 0.4rem; }
+  .header .container { padding-left: 0.75rem; padding-right: 0.75rem; }
+}
