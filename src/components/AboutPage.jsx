@@ -3,6 +3,9 @@ import { Target, Languages, Smartphone, Users, Award, Quote, Globe, Layers, Rout
 import { SITE } from '../siteConfig';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
+import './Dynamic.css';
+import Reveal from './Reveal';
+import fieldPeople from '../assets/photos/field-people.webp';
 import './Home.css';
 import './Polish.css';
 
@@ -53,9 +56,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Who we are */}
+      {/* Who we are, with a photo */}
       <section className="page-section">
-        <div className="container split">
+        <div className="container media-split">
           <div className="prose">
             <h2 style={{ marginTop: 0 }}>{t('about.who')}</h2>
             <p>{t('about.who.p1', { legal: SITE.legalName, location: t('site.location') })}</p>
@@ -78,6 +81,17 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Full-width photo band */}
+      <section className="page-section" style={{paddingTop:0, paddingBottom:"4rem"}}>
+        <div className="container">
+          <Reveal className="photo-card wide lift">
+            <img src={fieldPeople} alt={t('about.photo.alt')} loading="lazy" />
+            <div className="scrim" aria-hidden="true" />
+            <figcaption className="caption">{t('about.photo.caption')}</figcaption>
+          </Reveal>
         </div>
       </section>
 

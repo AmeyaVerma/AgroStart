@@ -5,6 +5,8 @@ import { useLanguage } from '../i18n/LanguageContext';
 import { LEARNING_STAGES, LIVELIHOOD_STAGES, STAGES_WITH_STATUS } from '../data/journey';
 import FaqSection from './FaqSection';
 import './Pages.css';
+import './Dynamic.css';
+import fieldPeople from '../assets/photos/field-people.webp';
 import './Home.css';
 import './Polish.css';
 
@@ -33,7 +35,8 @@ export default function HowItWorksPage() {
   const { t } = useLanguage();
   return (
     <div className="app">
-      <section className="page-hero">
+      <section className="page-hero with-photo">
+        <div className="photo-hero"><img src={fieldPeople} alt="" loading="eager" /></div>
         <div className="container">
           <div className="tag">{t('how.tag')}</div>
           <h1>{t('how.h1')}</h1>

@@ -738,6 +738,18 @@ const en = {
   'vm.values.v3': 'Practical over theoretical',
   'vm.values.v4': 'Inclusive of women and youth',
   'vm.values.v5': 'Driven by outcomes',
+  'home.photos.h2': 'Learning that goes where learners live',
+  'home.photos.intro': 'Phygital in practice: short lessons on a phone and hands-on work with a local trainer.',
+  'home.photos.p1': 'A village field: where the practice happens.',
+  'home.photos.p2': 'A farmer we hope to serve, in the field.',
+  'home.photos.p3': 'Working together: planting with a group.',
+  'home.photos.p4': 'From seed to income.',
+  'home.photos.p5': 'Processing and selling: beyond the farm gate.',
+  'home.why.photoAlt': 'A farmer in the field, the people AgroStart is built for.',
+  'home.why.badge': 'Who we are for',
+  'about.photo.alt': 'Farmers working together in a field.',
+  'about.photo.caption': 'Phygital in practice: lessons on the phone, hands-on work in the field.',
+  'prog.pilot.badge': 'Pilot focus',
 };
 
 export default en;
