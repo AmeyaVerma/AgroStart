@@ -3,6 +3,7 @@ import { ArrowRight, Award } from 'lucide-react';
 import { Link } from '../i18n/LocalizedLink';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
+import './Polish.css';
 
 // Each pathway and the sample course it starts with. SAMPLE DATA: replace with the real
 // pathways once AgroStart confirms them (brief, section 6.1).

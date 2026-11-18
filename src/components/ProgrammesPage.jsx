@@ -3,6 +3,7 @@ import { MapPin, Building2, Images, ArrowRight } from 'lucide-react';
 import { Link } from '../i18n/LocalizedLink';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
+import './Polish.css';
 import './Home.css';
 
 // Programmes and pilots (website framework). Only what is confirmed is stated; locations,

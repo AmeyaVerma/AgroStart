@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, Library, FileText, Newspaper, PlayCircle, CalendarDays } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
+import './Polish.css';
 import './Catalogue.css';
 import './Home.css';
 

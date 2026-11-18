@@ -2,6 +2,7 @@ import React from 'react';
 import { Users, GraduationCap, Sprout, TrendingUp, CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
+import './Polish.css';
 
 // The four levels AgroStart tracks (brief, section 6.9).
 const LEVELS = [

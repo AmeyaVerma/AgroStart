@@ -3,6 +3,7 @@ import { Link } from '../i18n/LocalizedLink';
 import { SITE } from '../siteConfig';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
+import './Polish.css';
 
 // DRAFT TEXT ONLY. The wording lives in src/i18n/*.js ("legal.*"). Every policy must be
 // reviewed by legal counsel and confirmed by AgroStart before publishing.

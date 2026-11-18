@@ -6,6 +6,7 @@ import { COURSES } from '../data/courses';
 import { durationGroup, modeGroup } from '../data/courses-meta';
 import CourseCard from './CourseCard';
 import './Pages.css';
+import './Polish.css';
 import './Catalogue.css';
 
 const PATHWAYS = ['p1', 'p2', 'p3', 'p4'];
@@ -132,7 +133,7 @@ export default function CoursesPage() {
         <div className="container">
           <h2>{t('pathways.h2')}</h2>
           <p className="section-intro">{t('pathways.intro')}</p>
-          <p><Link to="/pathways" className="btn btn-outline">{t('pathways.all')}</Link></p>
+          <p style={{ textAlign: 'center' }}><Link to="/pathways" className="btn btn-outline">{t('pathways.all')}</Link></p>
           <div className="card-grid">
             {PATHWAYS.map((p) => (
               <div className="info-card" key={p}>
@@ -143,7 +144,7 @@ export default function CoursesPage() {
               </div>
             ))}
           </div>
-          <p className="section-intro" style={{ marginTop: '1.5rem' }}>
+          <p className="section-intro" style={{ marginTop: '1.5rem', maxWidth: 'none' }}>
             <Users size={16} aria-hidden="true" /> {t('pathways.group')}{' '}
             <MapPin size={16} aria-hidden="true" /> <Link to="/partners" style={{ textDecoration: 'underline', color: 'var(--forest-green)' }}>{t('pathways.talk')}</Link>.
           </p>

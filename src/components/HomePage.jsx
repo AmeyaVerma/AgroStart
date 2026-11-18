@@ -7,6 +7,7 @@ import CourseCard from './CourseCard';
 import HeroBackdrop from './HeroBackdrop';
 import './Pages.css';
 import './Home.css';
+import './Polish.css';
 
 // Home page, following the website framework: hero, quick facts, featured courses,
 // why AgroStart, how it works (3 steps), learning pathways, impact and stories,

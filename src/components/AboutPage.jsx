@@ -1,9 +1,10 @@
 import React from 'react';
-import { Target, Languages, Smartphone } from 'lucide-react';
+import { Target, Languages, Smartphone, Users, Award, Quote, Globe, Layers, Route, Handshake, CheckCircle2, GraduationCap, Cpu, UserRound } from 'lucide-react';
 import { SITE } from '../siteConfig';
 import { useLanguage } from '../i18n/LanguageContext';
 import './Pages.css';
 import './Home.css';
+import './Polish.css';
 
 // Who we serve, as short lists of group names (titles come from the dictionaries).
 const AUDIENCE = [
@@ -12,11 +13,26 @@ const AUDIENCE = [
   { label: 'about.audience.institutional', titles: ['about.audience.i1.title', 'about.audience.i2.title'] },
 ];
 
-const MISSION = [1, 2, 3, 4];
+const MISSION = [
+  { n: 1, icon: Globe },
+  { n: 2, icon: Layers },
+  { n: 3, icon: Route },
+  { n: 4, icon: Handshake },
+];
+
 const GOALS = [
   { id: 'short', items: [1, 2, 3, 4] },
   { id: 'mid', items: [1, 2, 3, 4] },
   { id: 'long', items: [1, 2, 3] },
+];
+
+const VALUES = [1, 2, 3, 4, 5];
+
+const PEOPLE = [
+  { key: 'team', icon: UserRound, title: 'about.team.h2', text: 'about.team.text', soon: true },
+  { key: 'trainers', icon: GraduationCap, title: 'about.trainers', text: 'about.trainers.text', soon: true },
+  { key: 'tech', icon: Cpu, title: 'about.tech', text: 'about.tech.text', soon: false },
+  { key: 'advisory', icon: Handshake, title: 'about.advisory', text: 'about.advisory.text', soon: true },
 ];
 
 export default function AboutPage() {
@@ -37,6 +53,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Who we are */}
       <section className="page-section">
         <div className="container split">
           <div className="prose">
@@ -52,10 +69,12 @@ export default function AboutPage() {
 
           <div className="card-grid" style={{ gridTemplateColumns: '1fr' }}>
             {cards.map((c) => (
-              <div className="info-card" key={c.id}>
+              <div className="info-card mission-card" key={c.id}>
                 <div className="icon-wrapper">{c.icon}</div>
-                <h3>{t(`about.${c.id}.title`)}</h3>
-                <p>{t(`about.${c.id}.text`)}</p>
+                <div>
+                  <h3>{t(`about.${c.id}.title`)}</h3>
+                  <p>{t(`about.${c.id}.text`)}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -70,10 +89,11 @@ export default function AboutPage() {
             <p>{t('about.phy.p')}</p>
           </div>
           <div className="phygital-diagram">
-            {[['d1', null], ['d2', '+'], ['d3', '=']].map(([id, sign]) => (
+            {[['d1', Smartphone, null], ['d2', Users, '+'], ['d3', Award, '=']].map(([id, Icon, sign]) => (
               <React.Fragment key={id}>
                 {sign && <span className="phygital-sign" aria-hidden="true">{sign}</span>}
-                <div className="info-card">
+                <div className="info-card" style={{ alignItems: 'center', textAlign: 'center' }}>
+                  <div className="icon-wrapper"><Icon size={22} aria-hidden="true" /></div>
                   <h3>{t(`about.phy.${id}.title`)}</h3>
                   <p>{t(`about.phy.${id}.text`)}</p>
                 </div>
@@ -83,52 +103,77 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Vision, mission and goals (Vision, Mission and Goals document) */}
+      {/* Vision */}
       <section className="page-section" id="vision">
         <div className="container">
-          <div className="tag">{t('vm.tag')}</div>
-          <h2>{t('vm.vision.h2')}</h2>
-          <p className="vision-statement">{t('vm.vision.text')}</p>
+          <div className="center-head"><h2>{t('vm.vision.h2')}</h2></div>
+          <div className="statement-card">
+            <span className="statement-icon"><Quote size={24} aria-hidden="true" /></span>
+            <p>{t('vm.vision.text')}</p>
+          </div>
+        </div>
+      </section>
 
-          <h2>{t('vm.mission.h2')}</h2>
-          <div className="steps" role="list">
-            {MISSION.map((n) => (
-              <div className="step" role="listitem" key={n}>
-                <div className="step-num" aria-hidden="true">{n}</div>
-                <div><p>{t(`vm.mission.m${n}`)}</p></div>
+      {/* Mission */}
+      <section className="page-section alt" id="mission">
+        <div className="container">
+          <div className="center-head"><h2>{t('vm.mission.h2')}</h2></div>
+          <div className="grid-2">
+            {MISSION.map(({ n, icon: Icon }) => (
+              <div className="info-card mission-card" key={n}>
+                <div className="icon-wrapper"><Icon size={22} aria-hidden="true" /></div>
+                <p>{t(`vm.mission.m${n}`)}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <h2>{t('vm.goals.h2')}</h2>
-          <div className="card-grid three">
+      {/* Goals */}
+      <section className="page-section" id="goals">
+        <div className="container">
+          <div className="center-head"><h2>{t('vm.goals.h2')}</h2></div>
+          <div className="horizon-grid">
             {GOALS.map((g) => (
-              <div className="info-card" key={g.id}>
-                <h3>{t(`vm.goals.${g.id}`)}</h3>
-                <ul className="name-list">
-                  {g.items.map((n) => <li key={n}>{t(`vm.goals.${g.id}.${n}`)}</li>)}
+              <div className="info-card horizon-card" key={g.id}>
+                <span className="horizon-label">{t(`vm.goals.${g.id}`)}</span>
+                <ul className="tick-list">
+                  {g.items.map((n) => (
+                    <li key={n}><CheckCircle2 size={18} aria-hidden="true" /> <span>{t(`vm.goals.${g.id}.${n}`)}</span></li>
+                  ))}
                 </ul>
               </div>
             ))}
           </div>
-          <p className="section-intro" style={{ marginTop: '1.5rem' }}>{t('vm.goals.note')}</p>
-
-          <h2>{t('vm.values.h2')}</h2>
-          <p className="section-intro">{t('vm.values.text')}</p>
+          <p className="section-intro" style={{ marginTop: '1.75rem' }}>{t('vm.goals.note')}</p>
         </div>
       </section>
 
-      {/* Who we serve (target group document), kept short */}
-      <section className="page-section alt" id="audience">
+      {/* Values */}
+      <section className="page-section alt" id="values">
         <div className="container">
-          <h2>{t('about.audience.h2')}</h2>
-          <p className="section-intro">{t('about.audience.intro')}</p>
+          <div className="center-head"><h2>{t('vm.values.h2')}</h2></div>
+          <div className="chip-row">
+            {VALUES.map((n) => (
+              <span className="value-chip" key={n}><CheckCircle2 size={18} aria-hidden="true" /> {t(`vm.values.v${n}`)}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Who our courses are for */}
+      <section className="page-section" id="audience">
+        <div className="container">
+          <div className="center-head">
+            <h2>{t('about.audience.h2')}</h2>
+            <p>{t('about.audience.intro')}</p>
+          </div>
           <div className="audience-grid">
             {AUDIENCE.map((g) => (
               <div className="info-card audience-col" key={g.label}>
                 <h3>{t(g.label)}</h3>
-                <ul className="name-list">
-                  {g.titles.map((key) => <li key={key}>{t(key)}</li>)}
+                <ul className="tick-list">
+                  {g.titles.map((key) => <li key={key}><CheckCircle2 size={18} aria-hidden="true" /> <span>{t(key)}</span></li>)}
                 </ul>
               </div>
             ))}
@@ -139,19 +184,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="page-section">
+      {/* Team, trainers, technology and advisory partners */}
+      <section className="page-section alt">
         <div className="container">
-          <h2>{t('about.team.h2')}</h2>
-          <p className="section-intro">{t('about.team.text')}</p>
-          <h2>{t('about.trainers')}</h2>
-          <div className="notice" role="note">
-            <strong>{t('about.soon')}</strong>
-            <p>{t('about.trainers.text')}</p>
+          <div className="profile-grid">
+            {PEOPLE.map(({ key, icon: Icon, title, text, soon }) => (
+              <div className="info-card profile-card" key={key} style={soon ? undefined : { borderStyle: 'solid' }}>
+                <div className="avatar-ring"><Icon size={34} aria-hidden="true" /></div>
+                <h3>{t(title)}</h3>
+                <p>{t(text)}</p>
+                {soon && <span className="pill">{t('about.soon')}</span>}
+              </div>
+            ))}
           </div>
-          <h2>{t('about.tech')}</h2>
-          <p className="section-intro">{t('about.tech.text')}</p>
-          <h2>{t('about.advisory')}</h2>
-          <p className="section-intro">{t('about.advisory.text')}</p>
         </div>
       </section>
     </div>

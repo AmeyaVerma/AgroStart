@@ -3,6 +3,7 @@ import { useLanguage } from '../i18n/LanguageContext';
 import Contact from './Contact';
 import FaqSection from './FaqSection';
 import './Pages.css';
+import './Polish.css';
 
 // Contact and support (website framework): enquiry form, email, phone, WhatsApp, address
 // with map link, and the FAQ.

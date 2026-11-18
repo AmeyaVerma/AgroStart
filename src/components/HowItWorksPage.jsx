@@ -1,25 +1,31 @@
 import React from 'react';
 import { Link } from '../i18n/LocalizedLink';
-import { PlayCircle, ArrowRight, Smartphone, MapPin, Award } from 'lucide-react';
+import { PlayCircle, ArrowRight, Smartphone, MapPin, Award, UserPlus, Route, BookOpen, Hammer, Sparkles, Link2, Briefcase, LifeBuoy } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { LEARNING_STAGES, LIVELIHOOD_STAGES, STAGES_WITH_STATUS } from '../data/journey';
 import FaqSection from './FaqSection';
 import './Pages.css';
 import './Home.css';
+import './Polish.css';
 
-// One stage of the learner journey (AgroStart_Learner_Journey document).
+// Icon for each of the eight stages (AgroStart Learner Journey document).
+const STAGE_ICONS = { 1: UserPlus, 2: Route, 3: BookOpen, 4: Hammer, 5: Award, 6: Sparkles, 7: Link2, 8: Briefcase };
+
+// One stage of the learner journey, shown as a circle with its number, title and text.
 function Stage({ n, t }) {
+  const Icon = STAGE_ICONS[n];
   return (
-    <div className="step" role="listitem">
-      <div className="step-num" aria-hidden="true">{n}</div>
-      <div>
-        <h4>{t(`how.s${n}.title`)}</h4>
-        <p>{t(`how.s${n}.text`)}</p>
-        {STAGES_WITH_STATUS.includes(n) && (
-          <p className="stage-status"><strong>{t('how.statusLabel')}</strong> {t(`how.s${n}.status`)}</p>
-        )}
-      </div>
-    </div>
+    <li className="info-card track-stage">
+      <span className="stage-circle">
+        <Icon size={26} aria-hidden="true" />
+        <span className="stage-count" aria-hidden="true">{n}</span>
+      </span>
+      <h4>{t(`how.s${n}.title`)}</h4>
+      <p>{t(`how.s${n}.text`)}</p>
+      {STAGES_WITH_STATUS.includes(n) && (
+        <p className="stage-status"><strong>{t('how.statusLabel')}</strong> {t(`how.s${n}.status`)}</p>
+      )}
+    </li>
   );
 }
 
@@ -35,6 +41,7 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      {/* Three parts of every course */}
       <section className="page-section">
         <div className="container">
           <div className="center-head">
@@ -52,37 +59,46 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
+      {/* The learner journey: eight stages in two tracks */}
       <section className="page-section alt">
-        <div className="container split">
-          <div>
+        <div className="container">
+          <div className="center-head">
             <h2>{t('how.h2')}</h2>
-
-            <h3 className="stage-group">{t('how.group.learn')}</h3>
-            <div className="steps" role="list">
-              {LEARNING_STAGES.map((n) => <Stage n={n} t={t} key={n} />)}
-            </div>
-
-            <h3 className="stage-group">{t('how.group.live')}</h3>
-            <div className="steps" role="list">
-              {LIVELIHOOD_STAGES.map((n) => <Stage n={n} t={t} key={n} />)}
-            </div>
-
-            <div className="notice info" style={{ marginTop: '1.5rem' }}>
-              <p><strong>{t('how.support.strong')}</strong> {t('how.support.text')}</p>
-            </div>
           </div>
 
+          <h3 className="track-title">{t('how.group.learn')}</h3>
+          <ol className="track five">
+            {LEARNING_STAGES.map((n) => <Stage n={n} t={t} key={n} />)}
+          </ol>
+
+          <h3 className="track-title">{t('how.group.live')}</h3>
+          <ol className="track three">
+            {LIVELIHOOD_STAGES.map((n) => <Stage n={n} t={t} key={n} />)}
+          </ol>
+
+          <div className="notice info" style={{ marginTop: '2.5rem' }}>
+            <LifeBuoy size={22} aria-hidden="true" style={{ flexShrink: 0, color: 'var(--forest-green)' }} />
+            <p><strong>{t('how.support.strong')}</strong> {t('how.support.text')}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Video and next step */}
+      <section className="page-section">
+        <div className="container split">
           <div>
-            <h2>{t('how.watch')}</h2>
+            <h2 style={{ marginTop: 0 }}>{t('how.watch')}</h2>
             <div className="video-placeholder" role="img" aria-label={t('how.video.aria')}>
               <PlayCircle size={56} aria-hidden="true" />
               <strong>{t('how.video.title')}</strong>
               <span>{t('how.video.text')}</span>
             </div>
-            <div className="notice info" style={{ marginTop: '1.5rem' }}>
+          </div>
+          <div style={{ alignSelf: 'center' }}>
+            <div className="notice info">
               <p>{t('how.notice')}</p>
             </div>
-            <Link to="/courses" className="btn btn-primary" style={{ marginTop: '1rem' }}>
+            <Link to="/courses" className="btn btn-primary">
               {t('how.seeCourses')} <ArrowRight size={16} />
             </Link>
           </div>

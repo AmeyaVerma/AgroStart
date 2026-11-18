@@ -6,6 +6,7 @@ import ConsentCheckbox from './ConsentCheckbox';
 import useFormErrors, { errorProps } from './useFormErrors';
 import { FieldError, FormErrorSummary } from './FieldError';
 import './Pages.css';
+import './Polish.css';
 import './Contact.css';
 
 // The `en` strings are what gets written into the enquiry email (always English, so the

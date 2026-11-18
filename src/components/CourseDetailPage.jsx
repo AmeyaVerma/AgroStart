@@ -9,6 +9,7 @@ import CourseCard from './CourseCard';
 import FaqSection from './FaqSection';
 import { SITE } from '../siteConfig';
 import './Pages.css';
+import './Polish.css';
 
 export default function CourseDetailPage() {
   const { id } = useParams();
@@ -116,7 +117,7 @@ export default function CourseDetailPage() {
                 <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
               ))}
             </dl>
-            <Link to="/#contact" className="btn btn-primary">{t('courses.register')} <ArrowRight size={16} /></Link>
+            <Link to="/contact" className="btn btn-primary">{t('courses.register')} <ArrowRight size={16} /></Link>
             <a href={shareLink} className="btn btn-outline" target="_blank" rel="noopener noreferrer">
               <MessageCircle size={16} aria-hidden="true" /> {t('course.share')}
             </a>

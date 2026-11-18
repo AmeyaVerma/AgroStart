@@ -5,7 +5,7 @@ import { useLanguage } from '../i18n/LanguageContext';
 import './ServicesPage.css';
 import '../App.css';
 import './Pages.css';
-import Contact from './Contact';
+import './Polish.css';
 
 // Services beyond courses, grouped by who would buy them (AgroStart_Services document).
 // Titles and descriptions live in the dictionaries as services.<id>.title / .text.
@@ -34,7 +34,7 @@ export default function ServicesPage() {
           <p>{t('services.p')}</p>
           <div className="services-hero-actions">
             <a href="#farm" className="btn btn-primary">{t('services.explore')} <ArrowRight size={16} /></a>
-            <Link to="/#contact" className="btn btn-outline">{t('nav.consultation')}</Link>
+            <Link to="/contact" className="btn btn-outline">{t('nav.consultation')}</Link>
           </div>
         </div>
       </section>
@@ -56,7 +56,7 @@ export default function ServicesPage() {
               <div className="icon-wrapper"><Icon size={22} aria-hidden="true" /></div>
               <h2>{t(`services.group.${id}`)}</h2>
             </div>
-            <div className="card-grid fit service-grid">
+            <div className="card-grid service-grid" data-count={items.length}>
               {items.map((item) => (
                 <article className="info-card service-card" key={item}>
                   {first.includes(item) && <span className="pill first-pill">{t('services.firstBadge')}</span>}
@@ -74,14 +74,11 @@ export default function ServicesPage() {
         <div className="container">
           <h2>{t('services.cta.h2')}</h2>
           <p>{t('services.cta.p')}</p>
-          <Link to="/#contact" className="btn-white">
+          <Link to="/contact" className="btn-white">
             {t('services.cta.btn')} <ArrowRight size={16} />
           </Link>
         </div>
       </section>
-
-      {/* ── CONTACT (same as main page) ── */}
-      <Contact />
     </div>
   );
 }
